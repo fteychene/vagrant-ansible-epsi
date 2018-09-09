@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vagrants on Vagrant Ansible Getting Started</title>
+    <link>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/</link>
+    <description>Recent content in Vagrants on Vagrant Ansible Getting Started</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <lastBuildDate>Sun, 09 Sep 2018 20:06:59 +0200</lastBuildDate>
+    
+	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started with Vagrant</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</link>
+      <pubDate>Sun, 09 Sep 2018 20:06:59 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</guid>
+      <description>Installation Installation instruction can be found on this page
+You can verify the installation by running the vagrant command.
+▶ vagrant Usage: vagrant [options] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] -v, --version Print the version and exit. -h, --help Print this help. # ...  First VM Let&amp;rsquo;s start by crate a VM with vagrant.
+▶ vagrant init ubuntu/xenial64 ▶ vagrant up  The Vagrant command will download a box (the vagrant term for an VM image for a provider), create a VM based on this image and start it.</description>
+    </item>
+    
+    <item>
+      <title>Vagrant Multi machine</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</link>
+      <pubDate>Sun, 09 Sep 2018 20:06:59 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</guid>
+      <description>Multiple machines You can configure a Vagrantfile for multiples VMs at the same time.
+You need to use the function vm.define is the main VM configuration like the following configuration.
+Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Common provisioning&amp;quot; config.vm.define &amp;quot;web&amp;quot; do |web| web.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; web.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Provisioning for Web only&amp;quot; end config.vm.define &amp;quot;db&amp;quot; do |db| db.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; db.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Provisioning for Db only&amp;quot; end end  Try to run this configuration.</description>
+    </item>
+    
+  </channel>
+</rss>

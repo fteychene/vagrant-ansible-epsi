@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Francois Teychené">
+
+<meta name="description" content="">
+
+<title>Vagrant Multi machine</title>
+<meta name="generator" content="Hugo 0.46" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://fteychene.github.io/vagrant-ansible-epsi/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Vagrant Ansible Getting Started - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            
+        </ul>
+    </div>
+
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>Vagrant Multi machine</h1>
+<h4>Published 09-09-2018 20:06:59</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<h1 id="multiple-machines">Multiple machines</h1>
+
+<p>You can configure a <code>Vagrantfile</code> for multiples VMs at the same time.</p>
+
+<p>You need to use the function <code>vm.define</code> is the main VM configuration like the following configuration.</p>
+
+<pre><code class="language-ruby">Vagrant.configure(&quot;2&quot;) do |config|
+  config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot;
+
+  config.vm.define &quot;web&quot; do |web|
+    web.vm.box = &quot;ubuntu/xenial64&quot;
+    web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot;
+  end
+
+  config.vm.define &quot;db&quot; do |db|
+    db.vm.box = &quot;ubuntu/xenial64&quot;
+    db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot;
+  end
+end
+</code></pre>
+
+<p>Try to run this configuration.</p>
+
+<p>The official documentation can be found <a href="https://www.vagrantup.com/docs/multi-machine/">here</a></p>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://fteychene.github.io/vagrant-ansible-epsi/js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

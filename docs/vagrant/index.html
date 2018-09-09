@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Francois Teychené">
+
+<meta name="description" content="">
+
+<title>Vagrants</title>
+<meta name="generator" content="Hugo 0.46" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://fteychene.github.io/vagrant-ansible-epsi/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Vagrant Ansible Getting Started - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            
+        </ul>
+    </div>
+
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+
+<div class="articles-list">
+    
+    <article>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a> - 2018-09-09 20:06:59</h3>
+        Installation Installation instruction can be found on this page
+You can verify the installation by running the vagrant command.
+▶ vagrant Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;] -v, --version Print the version and exit. -h, --help Print this help. # ...  First VM Let&rsquo;s start by crate a VM with vagrant.
+▶ vagrant init ubuntu/xenial64 ▶ vagrant up  The Vagrant command will download a box (the vagrant term for an VM image for a provider), create a VM based on this image and start it.
+    </article>
+    
+    <article>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a> - 2018-09-09 20:06:59</h3>
+        Multiple machines You can configure a Vagrantfile for multiples VMs at the same time.
+You need to use the function vm.define is the main VM configuration like the following configuration.
+Vagrant.configure(&quot;2&quot;) do |config| config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot; config.vm.define &quot;web&quot; do |web| web.vm.box = &quot;ubuntu/xenial64&quot; web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot; end config.vm.define &quot;db&quot; do |db| db.vm.box = &quot;ubuntu/xenial64&quot; db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot; end end  Try to run this configuration.
+    </article>
+    
+</div>
+
+
+</div>
+</div>
+<script src="https://fteychene.github.io/vagrant-ansible-epsi/js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

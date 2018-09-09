@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Francois Teychené">
+
+<meta name="description" content="">
+
+<title>Getting Started with Vagrant</title>
+<meta name="generator" content="Hugo 0.46" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://fteychene.github.io/vagrant-ansible-epsi/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Vagrant Ansible Getting Started - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            
+        </ul>
+    </div>
+
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>Getting Started with Vagrant</h1>
+<h4>Published 09-09-2018 20:06:59</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<h1 id="installation">Installation</h1>
+
+<p>Installation instruction can be found on <a href="https://www.vagrantup.com/downloads.html">this page</a></p>
+
+<p>You can verify the installation by running the <code>vagrant</code> command.</p>
+
+<pre><code class="language-bash">▶ vagrant
+Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;]
+
+    -v, --version                    Print the version and exit.
+    -h, --help                       Print this help.
+
+# ...
+</code></pre>
+
+<h1 id="first-vm">First VM</h1>
+
+<p>Let&rsquo;s start by crate a VM with <code>vagrant</code>.</p>
+
+<pre><code class="language-bash">▶ vagrant init ubuntu/xenial64
+▶ vagrant up
+</code></pre>
+
+<p>The Vagrant command will download a <code>box</code> (the vagrant term for an VM image for a provider), create a VM based on this image and start it.<br />
+In our case it will start a VM based on the <code>Ubuntu Xenial (16.04)</code> image.</p>
+
+<p>Connect to to your running instance with <code>vagrant ssh</code></p>
+
+<pre><code class="language-bash">▶ vagrant ssh
+Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-134-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+New release '18.04.1 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+vagrant@ubuntu-xenial:~$
+</code></pre>
+
+<p>You are now connected to your running VM, you can try to break it for fun.<br />
+Exit when you are ready to continue.</p>
+
+<p>To destroy the running VM <code>vagrant destroy</code></p>
+
+<h1 id="vagrantfile">Vagrantfile</h1>
+
+<p>When we ran the <code>vagrant init ubuntu/xenial64</code> command, if you looked closely to the command output, you&rsquo;ve seen that a <code>Vagrantfile</code> have been created in your current directory.<br />
+This file is the configuration file of the VM and it&rsquo;s the information source for the <code>vagrant</code> command.</p>
+
+<pre><code class="language-ruby"># All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(&quot;2&quot;) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = &quot;ubuntu/xenial64&quot;
+
+  ...
+end
+</code></pre>
+
+<p>The configuration is heavily documented. I invite you to read the configurations availables and the quick explanation.<br />
+The documentation is also available <a href="https://docs.vagrantup.com">here</a></p>
+
+<h1 id="provisioning">Provisioning</h1>
+
+<p>On the last part on the <code>Vagrantfile</code> there is a section with an interesting part : the provisionning section.<br />
+Reinstall a VM could be an really easy but boring task to execute on each instanciation.<br />
+The provisionning part will let you define some tasks to be automatically executed by vagrant on the machine startup.</p>
+
+<p>Here is one exemple of the configuration based on the <code>shell</code> inline provisionning :</p>
+
+<pre><code class="language-ruby"># Enable provisioning with a shell script. Additional provisioners such as
+# Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+# documentation for more information about their specific syntax and use.
+config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+  cat &quot;File created by provisioning &gt;&gt; /tmp/witness&quot;
+SHELL
+</code></pre>
+
+<p>Try this setup by starting the VM and check the created file :</p>
+
+<pre><code>▶ vagrant up
+▶ vagrant ssh
+...
+vagrant@ubuntu-xenial:~$ cat /tmp/witness
+File created by provisioning
+</code></pre>
+
+<p>Another great thing : you can relaunch the provisioning of the VM without recreate it with the command <code>vagrant up --provision</code>.</p>
+
+<h1 id="exercice">Exercice</h1>
+
+<p>Create a <code>Vagrantfile</code> to configure a VM with a fixed ip <code>10.30.0.1</code> and a <code>nginx</code> http server installed on provisionning.<br />
+You should be able to see the <code>nginx</code> homepage at <code>http://10.30.0.1</code></p>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://fteychene.github.io/vagrant-ansible-epsi/js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

@@ -1,10 +1,10 @@
-baseURL = "https://fteychene.github.io/vagrant-ansible-epsi/"
+baseURL = "https://fteychene.github.io/vagrant-ansible-epsi"
 languageCode = "fr-FR"
 title = "Vagrant Ansible Getting Started"
 
 theme = "code-editor"
 
-publishDir = "public"
+publishDir = "docs"
 
 [params]
     author = "Francois Teychené"

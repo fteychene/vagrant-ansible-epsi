@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</loc>
+    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</loc>
+    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/</loc>
+    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/</loc>
+    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
