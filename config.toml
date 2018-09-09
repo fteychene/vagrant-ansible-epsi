@@ -1,0 +1,11 @@
+baseURL = "https://fteychene.github.io/vagrant-ansible-epsi/"
+languageCode = "fr-FR"
+title = "Vagrant Ansible Getting Started"
+
+theme = "code-editor"
+
+publishDir = "public"
+
+[params]
+    author = "Francois Teychené"
+    locale = "fr-FR"
