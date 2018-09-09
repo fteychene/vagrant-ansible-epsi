@@ -6,10 +6,20 @@
     <description>Recent content on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 09 Sep 2018 19:06:59 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 09 Sep 2018 22:06:59 +0200</lastBuildDate>
     
 	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Getting Started with Ansible</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/</link>
+      <pubDate>Sun, 09 Sep 2018 22:06:59 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/</guid>
+      <description>Create target VM Create a fresh VM with vagrant to use ansible on it with the following configuration
+Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; config.vm.network :private_network, ip: &amp;quot;192.168.0.2&amp;quot; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&amp;quot;~/.vagrant.d/insecure_private_key&amp;quot;,&amp;quot;~/.ssh/id_rsa&amp;quot;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&amp;quot;#{Dir.home}/.ssh/id_rsa.pub&amp;quot;).first.strip s.inline = &amp;lt;&amp;lt;-SHELL echo #{ssh_pub_key} &amp;gt;&amp;gt; /home/$USER/.ssh/authorized_keys sudo bash -c &amp;quot;echo #{ssh_pub_key} &amp;gt;&amp;gt; /root/.ssh/authorized_keys&amp;quot; sudo apt-get update sudo apt-get install -y python SHELL end end  Ansible use ssh to connect to target VM and execute command on machines.</description>
+    </item>
     
     <item>
       <title>Vagrant Multi machine</title>

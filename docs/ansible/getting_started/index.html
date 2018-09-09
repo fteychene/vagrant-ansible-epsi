@@ -8,7 +8,7 @@
 
 <meta name="description" content="">
 
-<title>Vagrant Multi machine</title>
+<title>Getting Started with Ansible</title>
 <meta name="generator" content="Hugo 0.46" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -44,8 +44,8 @@
 </div>
 <div class="col-md-9 content">
 
-<h1>Vagrant Multi machine</h1>
-<h4>Published 09-09-2018 19:06:59</h4>
+<h1>Getting Started with Ansible</h1>
+<h4>Published 09-09-2018 22:06:59</h4>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
 <script>!function (d, s, id) {
@@ -58,7 +58,7 @@
     }
 }(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/" data-layout="button"></div>
+<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/" data-layout="button"></div>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -71,46 +71,57 @@
 <article>
     
 
-<h1 id="multiple-machines">Multiple machines</h1>
+<h1 id="create-target-vm">Create target VM</h1>
 
-<p>You can configure a <code>Vagrantfile</code> for multiples VMs at the same time.</p>
-
-<p>You need to use the function <code>vm.define</code> is the main VM configuration like the following configuration.</p>
+<p>Create a fresh VM with <code>vagrant</code> to use ansible on it with the following configuration</p>
 
 <pre><code class="language-ruby">Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot;
+  config.vm.box = &quot;ubuntu/xenial64&quot;
 
-  config.vm.define &quot;web&quot; do |web|
-    web.vm.box = &quot;ubuntu/xenial64&quot;
-    web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot;
-  end
+  config.vm.network :private_network, ip: &quot;192.168.0.2&quot;
 
-  config.vm.define &quot;db&quot; do |db|
-    db.vm.box = &quot;ubuntu/xenial64&quot;
-    db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot;
+  config.ssh.forward_agent    = true
+  config.ssh.insert_key       = false
+  config.ssh.private_key_path =  [&quot;~/.vagrant.d/insecure_private_key&quot;,&quot;~/.ssh/id_rsa&quot;]
+  config.vm.provision :shell, privileged: false do |s|
+    ssh_pub_key = File.readlines(&quot;#{Dir.home}/.ssh/id_rsa.pub&quot;).first.strip
+    s.inline = &lt;&lt;-SHELL
+      echo #{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys
+      sudo bash -c &quot;echo #{ssh_pub_key} &gt;&gt; /root/.ssh/authorized_keys&quot;
+      sudo apt-get update
+      sudo apt-get install -y python
+    SHELL
   end
 end
 </code></pre>
 
-<p>Try to run this configuration.<br />
-You should see two VMs starting each provisionning the common part and it&rsquo;s custom part.</p>
+<p>Ansible use ssh to connect to target VM and execute command on machines.<br />
+This configuration add your local machine ssh keys to the accepted configuration of the custom VM.</p>
 
-<p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br />
-You can change it with :</p>
+<h1 id="installation">Installation</h1>
 
-<pre><code class="language-ruby">config.vm.define &quot;web&quot;, primary: true do |web|
-  # ...
-end
+<p>The instruction for installation can be found <a href="https://docs.ansible.com/ansible/2.5/installation_guide/intro_installation.html">here</a></p>
+
+<h1 id="inventory">Inventory</h1>
+
+<p>Ansible works against multiple systems in your infrastructure at the same time. It does this by selecting portions of systems listed in Ansible’s inventory, which defaults to being saved in the location <code>/etc/ansible/hosts</code>. You can specify a different inventory file using the -i <path> option on the command line.</p>
+
+<p>To work on your new configured VM,  add it&rsquo;s ip to the ansible inventory file <code>/etc/ansible/hosts</code></p>
+
+<pre><code class="language-bash">echo 192.168.0.2 &gt;&gt; /etc/ansible/hosts
 </code></pre>
 
-<p>You can also choose the connection VM with <code>vagrant ssh db</code></p>
+<p>By doing this you add your VM to the global inventory of ansible in the all group (if you don&rsquo;t have already some groupe configured in this file &hellip;).</p>
 
-<p>The official documentation can be found <a href="https://www.vagrantup.com/docs/multi-machine/">here</a></p>
+<p>You can test the connection to your VM with the ansible command, using the <code>ping</code> module.</p>
 
-<h1 id="excercice">Excercice</h1>
+<pre><code class="language-bash">ansible all -u root -m ping 
+</code></pre>
 
-<p>Create a <code>Vagrantfile</code> to create 2 VMs, one with a <code>mysql</code> service installed and <code>mysql-client</code> tool on the other.
-Try to connect on the VM with the client and connect to the other VM with the Mysql server.</p>
+<p>The <code>-u</code> option define the suer to connect with on the VM.<br />
+Th <code>-m</code> define the module to be executed on VMs from the all group</p>
+
+<h1 id="ad-hoc-commands">Ad-hoc commands</h1>
 
 </article>
 
