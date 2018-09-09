@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</loc>
-    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</loc>
+    <lastmod>2018-09-09T19:06:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</loc>
-    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</loc>
+    <lastmod>2018-09-09T14:06:59+02:00</lastmod>
   </url>
   
   <url>
@@ -24,13 +24,13 @@
   
   <url>
     <loc>https://fteychene.github.io/vagrant-ansible-epsi/</loc>
-    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <lastmod>2018-09-09T19:06:59+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/</loc>
-    <lastmod>2018-09-09T20:06:59+02:00</lastmod>
+    <lastmod>2018-09-09T19:06:59+02:00</lastmod>
     <priority>0</priority>
   </url>
   

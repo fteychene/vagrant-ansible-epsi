@@ -27,9 +27,9 @@
         <h3 data-open="last-posts">Vagrant Ansible Getting Started - Most recent posts</h3>
         <ul>
             
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
-            
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
             
         </ul>
     </div>
@@ -46,7 +46,7 @@
 <div class="articles-list">
     
     <article>
-        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a> - 2018-09-09 20:06:59</h3>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a> - 2018-09-09 14:06:59</h3>
         Installation Installation instruction can be found on this page
 You can verify the installation by running the vagrant command.
 ▶ vagrant Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;] -v, --version Print the version and exit. -h, --help Print this help. # ...  First VM Let&rsquo;s start by crate a VM with vagrant.
@@ -54,7 +54,7 @@ You can verify the installation by running the vagrant command.
     </article>
     
     <article>
-        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a> - 2018-09-09 20:06:59</h3>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a> - 2018-09-09 19:06:59</h3>
         Multiple machines You can configure a Vagrantfile for multiples VMs at the same time.
 You need to use the function vm.define is the main VM configuration like the following configuration.
 Vagrant.configure(&quot;2&quot;) do |config| config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot; config.vm.define &quot;web&quot; do |web| web.vm.box = &quot;ubuntu/xenial64&quot; web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot; end config.vm.define &quot;db&quot; do |db| db.vm.box = &quot;ubuntu/xenial64&quot; db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot; end end  Try to run this configuration.

@@ -27,9 +27,9 @@
         <h3 data-open="last-posts">Vagrant Ansible Getting Started - Most recent posts</h3>
         <ul>
             
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
-            
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
             
         </ul>
     </div>
@@ -43,7 +43,7 @@
 <div class="col-md-9 content">
 
 <h1>Vagrant Multi machine</h1>
-<h4>Published 09-09-2018 20:06:59</h4>
+<h4>Published 09-09-2018 19:06:59</h4>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
 <script>!function (d, s, id) {
@@ -90,9 +90,25 @@
 end
 </code></pre>
 
-<p>Try to run this configuration.</p>
+<p>Try to run this configuration.<br />
+You should see two VMs starting each provisionning the common part and it&rsquo;s custom part.</p>
+
+<p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br />
+You can change it with :</p>
+
+<pre><code class="language-ruby">config.vm.define &quot;web&quot;, primary: true do |web|
+  # ...
+end
+</code></pre>
+
+<p>You can also choose the connection VM with <code>vagrant ssh db</code></p>
 
 <p>The official documentation can be found <a href="https://www.vagrantup.com/docs/multi-machine/">here</a></p>
+
+<h1 id="excercice">Excercice</h1>
+
+<p>Create a <code>Vagrantfile</code> to create 2 VMs, one with a <code>mysql</code> service installed and <code>mysql-client</code> tool on the other.
+Try to connect on the VM with the client and connect to the other VM with the Mysql server.</p>
 
 </article>
 
