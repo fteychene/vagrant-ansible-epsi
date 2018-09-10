@@ -8,7 +8,7 @@
 
 <meta name="description" content="">
 
-<title>Vagrant Multi machine</title>
+<title>Playbook</title>
 <meta name="generator" content="Hugo 0.46" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -60,8 +60,8 @@
 </div>
 <div class="col-md-9 content">
 
-<h1>Vagrant Multi machine</h1>
-<h4>Published 09-09-2018 19:06:59</h4>
+<h1>Playbook</h1>
+<h4>Published 09-10-2018 13:30:00</h4>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
 <script>!function (d, s, id) {
@@ -74,7 +74,7 @@
     }
 }(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/" data-layout="button"></div>
+<div class="fb-share-button" data-href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/" data-layout="button"></div>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -87,46 +87,29 @@
 <article>
     
 
-<h1 id="multiple-machines">Multiple machines</h1>
+<h1 id="playbook">Playbook</h1>
 
-<p>You can configure a <code>Vagrantfile</code> for multiples VMs at the same time.</p>
+<p>Playbook are another way to define execution of commands on hosts and the principal way of executing <code>Ansible</code> on your infrastructure.<br />
+They defines the configuration to be executed and manage on your machines.</p>
 
-<p>You need to use the function <code>vm.define</code> is the main VM configuration like the following configuration.</p>
+<p>Principal diff with simple command execution are :</p>
 
-<pre><code class="language-ruby">Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot;
+<ul>
+<li>Templating</li>
+<li>Idempotency</li>
+<li>Reusability</li>
+</ul>
 
-  config.vm.define &quot;web&quot; do |web|
-    web.vm.box = &quot;ubuntu/xenial64&quot;
-    web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot;
-  end
+<p>These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the <code>ansible</code> behavior of push instead of pull.</p>
 
-  config.vm.define &quot;db&quot; do |db|
-    db.vm.box = &quot;ubuntu/xenial64&quot;
-    db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot;
-  end
-end
-</code></pre>
+<h1 id="introduction">Introduction</h1>
 
-<p>Try to run this configuration.<br />
-You should see two VMs starting each provisionning the common part and it&rsquo;s custom part.</p>
+<p>Follow the official introduction to Playbook <a href="https://docs.ansible.com/ansible/2.6/user_guide/playbooks_intro.html">here</a></p>
 
-<p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br />
-You can change it with :</p>
+<h1 id="exercice">Exercice</h1>
 
-<pre><code class="language-ruby">config.vm.define &quot;web&quot;, primary: true do |web|
-  # ...
-end
-</code></pre>
-
-<p>You can also choose the connection VM with <code>vagrant ssh db</code></p>
-
-<p>The official documentation can be found <a href="https://www.vagrantup.com/docs/multi-machine/">here</a></p>
-
-<h1 id="excercice">Excercice</h1>
-
-<p>Create a <code>Vagrantfile</code> to create 2 VMs, one with a <code>mysql</code> service installed and <code>mysql-client</code> tool on the other.
-Try to connect on the VM with the client and connect to the other VM with the Mysql server.</p>
+<p>Create a VM and install nginx on it with a custom user .<br />
+You should restart multiple times the provisionning with <code>vagrant up --provision</code> and only install the first time.</p>
 
 </article>
 

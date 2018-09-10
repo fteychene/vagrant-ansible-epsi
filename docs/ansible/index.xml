@@ -6,10 +6,33 @@
     <description>Recent content in Ansibles on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 09 Sep 2018 22:06:59 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 10 Sep 2018 13:30:00 +0200</lastBuildDate>
     
 	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Playbook</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/</link>
+      <pubDate>Mon, 10 Sep 2018 13:30:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/</guid>
+      <description>Playbook Playbook are another way to define execution of commands on hosts and the principal way of executing Ansible on your infrastructure.
+They defines the configuration to be executed and manage on your machines.
+Principal diff with simple command execution are :
+ Templating Idempotency Reusability  These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the ansible behavior of push instead of pull.</description>
+    </item>
+    
+    <item>
+      <title>Inventory</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/ansible/inventory/</link>
+      <pubDate>Mon, 10 Sep 2018 12:50:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/ansible/inventory/</guid>
+      <description>Inventory Instead of rewriting something already done : Follow the officiel documentation here
+Excercice Launch 2 VMs and split them in group web and db.
+Then launch a hostname command on groups web, db and all</description>
+    </item>
     
     <item>
       <title>Getting Started with Ansible</title>

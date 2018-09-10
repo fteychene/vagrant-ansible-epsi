@@ -1,6 +1,7 @@
 ---
 title: "Getting Started with Vagrant"
 date: 2018-09-09T14:06:59+02:00
+order: 0
 ---
 
 # Installation

@@ -24,26 +24,33 @@
     <nav class="col-md-3">
     <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
 
+    
     <div id="vagrant" class="open">
         <h3 data-open="vagrant">Vagrant</h3>
         <ul>
             
-                <li><a href="/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
             
-            
-                <li><a href="/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
             
         </ul>
     </div>
+    
 
+    
     <div id="ansible" class="open">
         <h3 data-open="ansible">Ansible</h3>
         <ul>
             
-                <li><a href="/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/inventory/">Inventory</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/">Playbook</a></li>
             
         </ul>
     </div>
+    
     
     
 
@@ -60,6 +67,21 @@
         <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a> - 2018-09-09 22:06:59</h3>
         Create target VM Create a fresh VM with vagrant to use ansible on it with the following configuration
 Vagrant.configure(&quot;2&quot;) do |config| config.vm.box = &quot;ubuntu/xenial64&quot; config.vm.network :private_network, ip: &quot;192.168.0.2&quot; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&quot;~/.vagrant.d/insecure_private_key&quot;,&quot;~/.ssh/id_rsa&quot;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&quot;#{Dir.home}/.ssh/id_rsa.pub&quot;).first.strip s.inline = &lt;&lt;-SHELL echo #{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys sudo bash -c &quot;echo #{ssh_pub_key} &gt;&gt; /root/.ssh/authorized_keys&quot; sudo apt-get update sudo apt-get install -y python SHELL end end  Ansible use ssh to connect to target VM and execute command on machines.
+    </article>
+    
+    <article>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/inventory/">Inventory</a> - 2018-09-10 12:50:00</h3>
+        Inventory Instead of rewriting something already done : Follow the officiel documentation here
+Excercice Launch 2 VMs and split them in group web and db.
+Then launch a hostname command on groups web, db and all
+    </article>
+    
+    <article>
+        <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/">Playbook</a> - 2018-09-10 13:30:00</h3>
+        Playbook Playbook are another way to define execution of commands on hosts and the principal way of executing Ansible on your infrastructure.
+They defines the configuration to be executed and manage on your machines.
+Principal diff with simple command execution are :
+ Templating Idempotency Reusability  These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the ansible behavior of push instead of pull.
     </article>
     
 </div>

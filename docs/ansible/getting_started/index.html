@@ -24,26 +24,33 @@
     <nav class="col-md-3">
     <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
 
+    
     <div id="vagrant" class="open">
         <h3 data-open="vagrant">Vagrant</h3>
         <ul>
             
-                <li><a href="/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
             
-            
-                <li><a href="/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/">Vagrant Multi machine</a></li>
             
         </ul>
     </div>
+    
 
+    
     <div id="ansible" class="open">
         <h3 data-open="ansible">Ansible</h3>
         <ul>
             
-                <li><a href="/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a></li>
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/inventory/">Inventory</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/">Playbook</a></li>
             
         </ul>
     </div>
+    
     
     
 
@@ -124,13 +131,47 @@ This configuration add your local machine ssh keys to the accepted configuration
 
 <p>You can test the connection to your VM with the ansible command, using the <code>ping</code> module.</p>
 
-<pre><code class="language-bash">ansible all -u root -m ping 
+<pre><code class="language-bash">ansible all -u vagrant -m ping 
 </code></pre>
 
 <p>The <code>-u</code> option define the suer to connect with on the VM.<br />
 Th <code>-m</code> define the module to be executed on VMs from the all group</p>
 
+<h1 id="connection-user">Connection user</h1>
+
+<p>If you would like to access sudo mode, there are also flags to do that:</p>
+
+<pre><code class="language-bash"># as bruce
+$ ansible all -m ping -u bruce
+# as bruce, sudoing to root
+$ ansible all -m ping -u bruce -b
+# as bruce, sudoing to batman
+$ ansible all -m ping -u bruce -b --become-user batman
+</code></pre>
+
+<p>(The sudo implementation is changeable in Ansible’s configuration file if you happen to want to use a sudo replacement. Flags passed to sudo (like -H) can also be set there.)</p>
+
 <h1 id="ad-hoc-commands">Ad-hoc commands</h1>
+
+<p>Now run a live command on all of your nodes:</p>
+
+<pre><code class="language-bash">$ ansible all -u vagrant -a &quot;/bin/echo hello&quot;
+</code></pre>
+
+<p>Congratulations! You’ve just contacted your nodes with Ansible.<br />
+It’s soon going to be time to:</p>
+
+<ul>
+<li>read about some more real-world cases in Introduction To Ad-Hoc Commands</li>
+<li>explore what you can do with different modules</li>
+<li>learn about the Ansible Working With Playbooks language. Ansible is not just about running commands, it also has powerful configuration management and deployment features.</li>
+</ul>
+
+<p>There’s more to explore, but you already have a fully working infrastructure!</p>
+
+<h1 id="excercice">Excercice</h1>
+
+<p>Start multiple VMs and configure ansible to run <code>hostname</code> to all your VM with one command</p>
 
 </article>
 

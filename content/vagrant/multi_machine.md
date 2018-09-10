@@ -1,6 +1,7 @@
 ---
 title: "Vagrant Multi machine"
 date: 2018-09-09T19:06:59+02:00
+order: 1
 ---
 
 # Multiple machines

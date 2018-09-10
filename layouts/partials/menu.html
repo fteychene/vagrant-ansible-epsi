@@ -1,26 +1,27 @@
 <nav class="col-md-3">
     <h3 class="home-link"><a href="{{ index .Site.Params "rootlink" | default .Site.BaseURL }}">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).root }}</a></h3>
 
+    {{ with where $.Site.RegularPages "Section" "vagrant" }}
     <div id="vagrant" class="open">
         <h3 data-open="vagrant">Vagrant</h3>
         <ul>
-            {{ with .Site.GetPage "/vagrant/getting_started.md"  }}
-                <li><a href="{{- .URL -}}">{{ .Title }}</a></li>
-            {{ end }}
-            {{ with .Site.GetPage "/vagrant/multi_machine.md"  }}
-                <li><a href="{{- .URL -}}">{{ .Title }}</a></li>
+            {{ range (.ByParam "order") }}
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
         </ul>
     </div>
+    {{ end }}
 
+    {{ with where $.Site.RegularPages "Section" "ansible" }}
     <div id="ansible" class="open">
         <h3 data-open="ansible">Ansible</h3>
         <ul>
-            {{ with .Site.GetPage "/ansible/getting_started.md"  }}
-                <li><a href="{{- .URL -}}">{{ .Title }}</a></li>
+            {{ range (.ByParam "order") }}
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
         </ul>
     </div>
+    {{ end }}
     
     {{ with .Site.Taxonomies.tags }}
     <div id="tags" class="open">
