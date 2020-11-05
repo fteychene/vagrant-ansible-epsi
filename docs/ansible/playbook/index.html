@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Playbook</title>
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.62.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -95,30 +95,20 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <article>
-    
-
-<h1 id="playbook">Playbook</h1>
-
-<p>Playbook are another way to define execution of commands on hosts and the principal way of executing <code>Ansible</code> on your infrastructure.<br />
+    <h1 id="playbook">Playbook</h1>
+<p>Playbook are another way to define execution of commands on hosts and the principal way of executing <code>Ansible</code> on your infrastructure.<br>
 They defines the configuration to be executed and manage on your machines.</p>
-
 <p>Principal diff with simple command execution are :</p>
-
 <ul>
 <li>Templating</li>
 <li>Idempotency</li>
 <li>Reusability</li>
 </ul>
-
 <p>These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the <code>ansible</code> behavior of push instead of pull.</p>
-
 <h1 id="introduction">Introduction</h1>
-
 <p>Follow the official introduction to Playbook <a href="https://docs.ansible.com/ansible/2.6/user_guide/playbooks_intro.html">here</a></p>
-
 <h1 id="exercice">Exercice</h1>
-
-<p>Create a VM and install nginx on it with a custom user .<br />
+<p>Create a VM and install nginx on it with a custom user .<br>
 You should restart multiple times the provisionning with <code>vagrant up --provision</code> and only install the first time.</p>
 
 </article>

@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Getting Started with Vagrant</title>
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.62.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -95,38 +95,25 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <article>
-    
-
-<h1 id="installation">Installation</h1>
-
+    <h1 id="installation">Installation</h1>
 <p>Installation instruction can be found on <a href="https://www.vagrantup.com/downloads.html">this page</a></p>
-
 <p>You can verify the installation by running the <code>vagrant</code> command.</p>
-
-<pre><code class="language-bash">▶ vagrant
-Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant
+Usage: vagrant <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> &lt;command&gt; <span style="color:#f92672">[</span>&lt;args&gt;<span style="color:#f92672">]</span>
 
     -v, --version                    Print the version and exit.
     -h, --help                       Print this help.
 
-# ...
-</code></pre>
-
-<h1 id="first-vm">First VM</h1>
-
-<p>Let&rsquo;s start by crate a VM with <code>vagrant</code>.</p>
-
-<pre><code class="language-bash">▶ vagrant init ubuntu/xenial64
+<span style="color:#75715e"># ...</span>
+</code></pre></div><h1 id="first-vm">First VM</h1>
+<p>Let's start by crate a VM with <code>vagrant</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant init ubuntu/xenial64
 ▶ vagrant up
-</code></pre>
-
-<p>The Vagrant command will download a <code>box</code> (the vagrant term for an VM image for a provider), create a VM based on this image and start it.<br />
+</code></pre></div><p>The Vagrant command will download a <code>box</code> (the vagrant term for an VM image for a provider), create a VM based on this image and start it.<br>
 In our case it will start a VM based on the <code>Ubuntu Xenial (16.04)</code> image.</p>
-
 <p>Connect to to your running instance with <code>vagrant ssh</code></p>
-
-<pre><code class="language-bash">▶ vagrant ssh
-Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-134-generic x86_64)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant ssh
+Welcome to Ubuntu 16.04.5 LTS <span style="color:#f92672">(</span>GNU/Linux 4.4.0-134-generic x86_64<span style="color:#f92672">)</span>
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
@@ -135,76 +122,57 @@ Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-134-generic x86_64)
   Get cloud support with Ubuntu Advantage Cloud Guest:
     http://www.ubuntu.com/business/services/cloud
 
-0 packages can be updated.
-0 updates are security updates.
+<span style="color:#ae81ff">0</span> packages can be updated.
+<span style="color:#ae81ff">0</span> updates are security updates.
 
-New release '18.04.1 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
+New release <span style="color:#e6db74">&#39;18.04.1 LTS&#39;</span> available.
+Run <span style="color:#e6db74">&#39;do-release-upgrade&#39;</span> to upgrade to it.
 
 
 vagrant@ubuntu-xenial:~$
-</code></pre>
-
-<p>You are now connected to your running VM, you can try to break it for fun.<br />
+</code></pre></div><p>You are now connected to your running VM, you can try to break it for fun.<br>
 Exit when you are ready to continue.</p>
-
 <p>To destroy the running VM <code>vagrant destroy</code></p>
-
 <h1 id="vagrantfile">Vagrantfile</h1>
+<p>When we ran the <code>vagrant init ubuntu/xenial64</code> command, if you looked closely to the command output, you've seen that a <code>Vagrantfile</code> have been created in your current directory.<br>
+This file is the configuration file of the VM and it's the information source for the <code>vagrant</code> command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># All Vagrant configuration is done below. The &#34;2&#34; in Vagrant.configure</span>
+<span style="color:#75715e"># configures the configuration version (we support older styles for</span>
+<span style="color:#75715e"># backwards compatibility). Please don&#39;t change it unless you know what</span>
+<span style="color:#75715e"># you&#39;re doing.</span>
+<span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  <span style="color:#75715e"># The most common configuration options are documented and commented below.</span>
+  <span style="color:#75715e"># For a complete reference, please see the online documentation at</span>
+  <span style="color:#75715e"># https://docs.vagrantup.com.</span>
 
-<p>When we ran the <code>vagrant init ubuntu/xenial64</code> command, if you looked closely to the command output, you&rsquo;ve seen that a <code>Vagrantfile</code> have been created in your current directory.<br />
-This file is the configuration file of the VM and it&rsquo;s the information source for the <code>vagrant</code> command.</p>
+  <span style="color:#75715e"># Every Vagrant development environment requires a box. You can search for</span>
+  <span style="color:#75715e"># boxes at https://vagrantcloud.com/search.</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
 
-<pre><code class="language-ruby"># All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
-Vagrant.configure(&quot;2&quot;) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
-
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = &quot;ubuntu/xenial64&quot;
-
-  ...
-end
-</code></pre>
-
-<p>The configuration is heavily documented. I invite you to read the configurations availables and the quick explanation.<br />
+  <span style="color:#f92672">...</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>The configuration is heavily documented. I invite you to read the configurations availables and the quick explanation.<br>
 The documentation is also available <a href="https://docs.vagrantup.com">here</a></p>
-
 <h1 id="provisioning">Provisioning</h1>
-
-<p>On the last part on the <code>Vagrantfile</code> there is a section with an interesting part : the provisionning section.<br />
-Reinstall a VM could be an really easy but boring task to execute on each instanciation.<br />
+<p>On the last part on the <code>Vagrantfile</code> there is a section with an interesting part : the provisionning section.<br>
+Reinstall a VM could be an really easy but boring task to execute on each instanciation.<br>
 The provisionning part will let you define some tasks to be automatically executed by vagrant on the machine startup.</p>
-
 <p>Here is one exemple of the configuration based on the <code>shell</code> inline provisionning :</p>
-
-<pre><code class="language-ruby"># Enable provisioning with a shell script. Additional provisioners such as
-# Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-# documentation for more information about their specific syntax and use.
-config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
-  cat &quot;File created by provisioning &gt;&gt; /tmp/witness&quot;
-SHELL
-</code></pre>
-
-<p>Try this setup by starting the VM and check the created file :</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># Enable provisioning with a shell script. Additional provisioners such as</span>
+<span style="color:#75715e"># Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the</span>
+<span style="color:#75715e"># documentation for more information about their specific syntax and use.</span>
+config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&lt;&lt;-SHELL
+</span><span style="color:#e6db74"></span>  cat <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">File created by provisioning &gt;&gt; /tmp/witness</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">SHELL</span>
+</code></pre></div><p>Try this setup by starting the VM and check the created file :</p>
 <pre><code>▶ vagrant up
 ▶ vagrant ssh
 ...
 vagrant@ubuntu-xenial:~$ cat /tmp/witness
 File created by provisioning
-</code></pre>
-
-<p>Another great thing : you can relaunch the provisioning of the VM without recreate it with the command <code>vagrant up --provision</code>.</p>
-
+</code></pre><p>Another great thing : you can relaunch the provisioning of the VM without recreate it with the command <code>vagrant up --provision</code>.</p>
 <h1 id="exercice">Exercice</h1>
-
-<p>Create a <code>Vagrantfile</code> to configure a VM with a fixed ip <code>10.30.0.1</code> and a <code>nginx</code> http server installed on provisionning.<br />
+<p>Create a <code>Vagrantfile</code> to configure a VM with a fixed ip <code>10.30.0.1</code> and a <code>nginx</code> http server installed on provisionning.<br>
 You should be able to see the <code>nginx</code> homepage at <code>http://10.30.0.1</code></p>
 
 </article>

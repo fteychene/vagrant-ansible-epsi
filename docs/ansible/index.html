@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Ansibles</title>
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.62.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -76,7 +76,7 @@
     <article>
         <h3><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a> - 2018-09-09 22:06:59</h3>
         Create target VM Create a fresh VM with vagrant to use ansible on it with the following configuration
-Vagrant.configure(&quot;2&quot;) do |config| config.vm.box = &quot;ubuntu/xenial64&quot; config.vm.network :private_network, ip: &quot;192.168.0.2&quot; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&quot;~/.vagrant.d/insecure_private_key&quot;,&quot;~/.ssh/id_rsa&quot;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&quot;#{Dir.home}/.ssh/id_rsa.pub&quot;).first.strip s.inline = &lt;&lt;-SHELL echo #{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys sudo bash -c &quot;echo #{ssh_pub_key} &gt;&gt; /root/.ssh/authorized_keys&quot; sudo apt-get update sudo apt-get install -y python SHELL end end  Ansible use ssh to connect to target VM and execute command on machines.
+Vagrant.configure(&#34;2&#34;) do |config| config.vm.box = &#34;ubuntu/xenial64&#34; config.vm.network :private_network, ip: &#34;192.168.0.2&#34; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&#34;~/.vagrant.d/insecure_private_key&#34;,&#34;~/.ssh/id_rsa&#34;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&#34;#{Dir.home}/.ssh/id_rsa.pub&#34;).first.strip s.inline = &lt;&lt;-SHELL  echo #{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys sudo bash -c &#34;echo #{ssh_pub_key}&gt;&gt; /root/.ssh/authorized_keys&#34; sudo apt-get update sudo apt-get install -y python SHELL end end Ansible use ssh to connect to target VM and execute command on machines.
     </article>
     
     <article>
@@ -92,9 +92,11 @@ Then launch a hostname command on groups web, db and all
 They defines the configuration to be executed and manage on your machines.
 Principal diff with simple command execution are :
  Templating Idempotency Reusability  These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the ansible behavior of push instead of pull.
+Introduction Follow the official introduction to Playbook here
     </article>
     
 </div>
+
 
 
 </div>

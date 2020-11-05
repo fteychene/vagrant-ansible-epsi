@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Vagrant Multi machine</title>
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.62.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -95,46 +95,32 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <article>
-    
-
-<h1 id="multiple-machines">Multiple machines</h1>
-
+    <h1 id="multiple-machines">Multiple machines</h1>
 <p>You can configure a <code>Vagrantfile</code> for multiples VMs at the same time.</p>
-
 <p>You need to use the function <code>vm.define</code> is the main VM configuration like the following configuration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Common provisioning</span><span style="color:#e6db74">&#34;</span>
 
-<pre><code class="language-ruby">Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.provision &quot;shell&quot;, inline: &quot;echo Common provisioning&quot;
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">web</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
+    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
+    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Provisioning for Web only</span><span style="color:#e6db74">&#34;</span>
+  <span style="color:#66d9ef">end</span>
 
-  config.vm.define &quot;web&quot; do |web|
-    web.vm.box = &quot;ubuntu/xenial64&quot;
-    web.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Web only&quot;
-  end
-
-  config.vm.define &quot;db&quot; do |db|
-    db.vm.box = &quot;ubuntu/xenial64&quot;
-    db.vm.provision &quot;shell&quot;, inline: &quot;echo Provisioning for Db only&quot;
-  end
-end
-</code></pre>
-
-<p>Try to run this configuration.<br />
-You should see two VMs starting each provisionning the common part and it&rsquo;s custom part.</p>
-
-<p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br />
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">db</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>db<span style="color:#f92672">|</span>
+    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
+    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Provisioning for Db only</span><span style="color:#e6db74">&#34;</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Try to run this configuration.<br>
+You should see two VMs starting each provisionning the common part and it's custom part.</p>
+<p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br>
 You can change it with :</p>
-
-<pre><code class="language-ruby">config.vm.define &quot;web&quot;, primary: true do |web|
-  # ...
-end
-</code></pre>
-
-<p>You can also choose the connection VM with <code>vagrant ssh db</code></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">web</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">primary</span>: <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
+  <span style="color:#75715e"># ...</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>You can also choose the connection VM with <code>vagrant ssh db</code></p>
 <p>The official documentation can be found <a href="https://www.vagrantup.com/docs/multi-machine/">here</a></p>
-
 <h1 id="excercice">Excercice</h1>
-
 <p>Create a <code>Vagrantfile</code> to create 2 VMs, one with a <code>mysql</code> service installed and <code>mysql-client</code> tool on the other.
 Try to connect on the VM with the client and connect to the other VM with the Mysql server.</p>
 

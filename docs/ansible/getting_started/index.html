@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Getting Started with Ansible</title>
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.62.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -95,92 +95,60 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <article>
-    
-
-<h1 id="create-target-vm">Create target VM</h1>
-
+    <h1 id="create-target-vm">Create target VM</h1>
 <p>Create a fresh VM with <code>vagrant</code> to use ansible on it with the following configuration</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
 
-<pre><code class="language-ruby">Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.box = &quot;ubuntu/xenial64&quot;
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">192.168.0.2</span><span style="color:#e6db74">&#34;</span>
 
-  config.vm.network :private_network, ip: &quot;192.168.0.2&quot;
-
-  config.ssh.forward_agent    = true
-  config.ssh.insert_key       = false
-  config.ssh.private_key_path =  [&quot;~/.vagrant.d/insecure_private_key&quot;,&quot;~/.ssh/id_rsa&quot;]
-  config.vm.provision :shell, privileged: false do |s|
-    ssh_pub_key = File.readlines(&quot;#{Dir.home}/.ssh/id_rsa.pub&quot;).first.strip
-    s.inline = &lt;&lt;-SHELL
-      echo #{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys
-      sudo bash -c &quot;echo #{ssh_pub_key} &gt;&gt; /root/.ssh/authorized_keys&quot;
-      sudo apt-get update
-      sudo apt-get install -y python
-    SHELL
-  end
-end
-</code></pre>
-
-<p>Ansible use ssh to connect to target VM and execute command on machines.<br />
+  config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>forward_agent    <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+  config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>insert_key       <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>private_key_path <span style="color:#f92672">=</span>  <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/.vagrant.d/insecure_private_key</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/.ssh/id_rsa</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">]</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">:shell</span>, <span style="color:#e6db74">privileged</span>: <span style="color:#66d9ef">false</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>s<span style="color:#f92672">|</span>
+    ssh_pub_key <span style="color:#f92672">=</span> <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>readlines(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">Dir</span><span style="color:#f92672">.</span>home<span style="color:#e6db74">}</span><span style="color:#e6db74">/.ssh/id_rsa.pub</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>first<span style="color:#f92672">.</span>strip
+    s<span style="color:#f92672">.</span>inline <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;&lt;-SHELL
+</span><span style="color:#e6db74"></span>      echo <span style="color:#75715e">#{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys</span>
+      sudo bash <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo </span><span style="color:#e6db74">#{</span>ssh_pub_key<span style="color:#e6db74">}</span><span style="color:#e6db74"> &gt;&gt; /root/.ssh/authorized_keys</span><span style="color:#e6db74">&#34;</span>
+      sudo apt<span style="color:#f92672">-</span>get update
+      sudo apt<span style="color:#f92672">-</span>get install <span style="color:#f92672">-</span>y python
+    <span style="color:#66d9ef">SHELL</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Ansible use ssh to connect to target VM and execute command on machines.<br>
 This configuration add your local machine ssh keys to the accepted configuration of the custom VM.</p>
-
 <h1 id="installation">Installation</h1>
-
 <p>The instruction for installation can be found <a href="https://docs.ansible.com/ansible/2.5/installation_guide/intro_installation.html">here</a></p>
-
 <h1 id="inventory">Inventory</h1>
-
-<p>Ansible works against multiple systems in your infrastructure at the same time. It does this by selecting portions of systems listed in Ansible’s inventory, which defaults to being saved in the location <code>/etc/ansible/hosts</code>. You can specify a different inventory file using the -i <path> option on the command line.</p>
-
-<p>To work on your new configured VM,  add it&rsquo;s ip to the ansible inventory file <code>/etc/ansible/hosts</code></p>
-
-<pre><code class="language-bash">echo 192.168.0.2 &gt;&gt; /etc/ansible/hosts
-</code></pre>
-
-<p>By doing this you add your VM to the global inventory of ansible in the all group (if you don&rsquo;t have already some groupe configured in this file &hellip;).</p>
-
+<p>Ansible works against multiple systems in your infrastructure at the same time. It does this by selecting portions of systems listed in Ansible’s inventory, which defaults to being saved in the location <code>/etc/ansible/hosts</code>. You can specify a different inventory file using the -i <!-- raw HTML omitted --> option on the command line.</p>
+<p>To work on your new configured VM,  add it's ip to the ansible inventory file <code>/etc/ansible/hosts</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo 192.168.0.2 &gt;&gt; /etc/ansible/hosts
+</code></pre></div><p>By doing this you add your VM to the global inventory of ansible in the all group (if you don't have already some groupe configured in this file &hellip;).</p>
 <p>You can test the connection to your VM with the ansible command, using the <code>ping</code> module.</p>
-
-<pre><code class="language-bash">ansible all -u vagrant -m ping 
-</code></pre>
-
-<p>The <code>-u</code> option define the suer to connect with on the VM.<br />
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ansible all -u vagrant -m ping 
+</code></pre></div><p>The <code>-u</code> option define the suer to connect with on the VM.<br>
 Th <code>-m</code> define the module to be executed on VMs from the all group</p>
-
 <h1 id="connection-user">Connection user</h1>
-
 <p>If you would like to access sudo mode, there are also flags to do that:</p>
-
-<pre><code class="language-bash"># as bruce
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># as bruce</span>
 $ ansible all -m ping -u bruce
-# as bruce, sudoing to root
+<span style="color:#75715e"># as bruce, sudoing to root</span>
 $ ansible all -m ping -u bruce -b
-# as bruce, sudoing to batman
+<span style="color:#75715e"># as bruce, sudoing to batman</span>
 $ ansible all -m ping -u bruce -b --become-user batman
-</code></pre>
-
-<p>(The sudo implementation is changeable in Ansible’s configuration file if you happen to want to use a sudo replacement. Flags passed to sudo (like -H) can also be set there.)</p>
-
+</code></pre></div><p>(The sudo implementation is changeable in Ansible’s configuration file if you happen to want to use a sudo replacement. Flags passed to sudo (like -H) can also be set there.)</p>
 <h1 id="ad-hoc-commands">Ad-hoc commands</h1>
-
 <p>Now run a live command on all of your nodes:</p>
-
-<pre><code class="language-bash">$ ansible all -u vagrant -a &quot;/bin/echo hello&quot;
-</code></pre>
-
-<p>Congratulations! You’ve just contacted your nodes with Ansible.<br />
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ansible all -u vagrant -a <span style="color:#e6db74">&#34;/bin/echo hello&#34;</span>
+</code></pre></div><p>Congratulations! You’ve just contacted your nodes with Ansible.<br>
 It’s soon going to be time to:</p>
-
 <ul>
 <li>read about some more real-world cases in Introduction To Ad-Hoc Commands</li>
 <li>explore what you can do with different modules</li>
 <li>learn about the Ansible Working With Playbooks language. Ansible is not just about running commands, it also has powerful configuration management and deployment features.</li>
 </ul>
-
 <p>There’s more to explore, but you already have a fully working infrastructure!</p>
-
 <h1 id="excercice">Excercice</h1>
-
 <p>Start multiple VMs and configure ansible to run <code>hostname</code> to all your VM with one command</p>
 
 </article>

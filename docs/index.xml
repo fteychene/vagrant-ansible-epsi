@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vagrant Ansible Getting Started</title>
@@ -20,7 +20,8 @@
       <description>Playbook Playbook are another way to define execution of commands on hosts and the principal way of executing Ansible on your infrastructure.
 They defines the configuration to be executed and manage on your machines.
 Principal diff with simple command execution are :
- Templating Idempotency Reusability  These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the ansible behavior of push instead of pull.</description>
+ Templating Idempotency Reusability  These 3 features are really interesting for managing cofigruation of your infrastructure, coupled with the ansible behavior of push instead of pull.
+Introduction Follow the official introduction to Playbook here</description>
     </item>
     
     <item>
@@ -41,7 +42,7 @@ Then launch a hostname command on groups web, db and all</description>
       
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/</guid>
       <description>Create target VM Create a fresh VM with vagrant to use ansible on it with the following configuration
-Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; config.vm.network :private_network, ip: &amp;quot;192.168.0.2&amp;quot; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&amp;quot;~/.vagrant.d/insecure_private_key&amp;quot;,&amp;quot;~/.ssh/id_rsa&amp;quot;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&amp;quot;#{Dir.home}/.ssh/id_rsa.pub&amp;quot;).first.strip s.inline = &amp;lt;&amp;lt;-SHELL echo #{ssh_pub_key} &amp;gt;&amp;gt; /home/$USER/.ssh/authorized_keys sudo bash -c &amp;quot;echo #{ssh_pub_key} &amp;gt;&amp;gt; /root/.ssh/authorized_keys&amp;quot; sudo apt-get update sudo apt-get install -y python SHELL end end  Ansible use ssh to connect to target VM and execute command on machines.</description>
+Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;ubuntu/xenial64&amp;#34; config.vm.network :private_network, ip: &amp;#34;192.168.0.2&amp;#34; config.ssh.forward_agent = true config.ssh.insert_key = false config.ssh.private_key_path = [&amp;#34;~/.vagrant.d/insecure_private_key&amp;#34;,&amp;#34;~/.ssh/id_rsa&amp;#34;] config.vm.provision :shell, privileged: false do |s| ssh_pub_key = File.readlines(&amp;#34;#{Dir.home}/.ssh/id_rsa.pub&amp;#34;).first.strip s.inline = &amp;lt;&amp;lt;-SHELL  echo #{ssh_pub_key} &amp;gt;&amp;gt; /home/$USER/.ssh/authorized_keys sudo bash -c &amp;#34;echo #{ssh_pub_key}&amp;gt;&amp;gt; /root/.ssh/authorized_keys&amp;#34; sudo apt-get update sudo apt-get install -y python SHELL end end Ansible use ssh to connect to target VM and execute command on machines.</description>
     </item>
     
     <item>
@@ -52,7 +53,7 @@ Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.box = &amp;quot;u
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</guid>
       <description>Multiple machines You can configure a Vagrantfile for multiples VMs at the same time.
 You need to use the function vm.define is the main VM configuration like the following configuration.
-Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Common provisioning&amp;quot; config.vm.define &amp;quot;web&amp;quot; do |web| web.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; web.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Provisioning for Web only&amp;quot; end config.vm.define &amp;quot;db&amp;quot; do |db| db.vm.box = &amp;quot;ubuntu/xenial64&amp;quot; db.vm.provision &amp;quot;shell&amp;quot;, inline: &amp;quot;echo Provisioning for Db only&amp;quot; end end  Try to run this configuration.</description>
+Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.provision &amp;#34;shell&amp;#34;, inline: &amp;#34;echo Common provisioning&amp;#34; config.vm.define &amp;#34;web&amp;#34; do |web| web.vm.box = &amp;#34;ubuntu/xenial64&amp;#34; web.vm.provision &amp;#34;shell&amp;#34;, inline: &amp;#34;echo Provisioning for Web only&amp;#34; end config.vm.define &amp;#34;db&amp;#34; do |db| db.vm.box = &amp;#34;ubuntu/xenial64&amp;#34; db.vm.provision &amp;#34;shell&amp;#34;, inline: &amp;#34;echo Provisioning for Db only&amp;#34; end end Try to run this configuration.</description>
     </item>
     
     <item>
@@ -63,8 +64,8 @@ Vagrant.configure(&amp;quot;2&amp;quot;) do |config| config.vm.provision &amp;qu
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</guid>
       <description>Installation Installation instruction can be found on this page
 You can verify the installation by running the vagrant command.
-▶ vagrant Usage: vagrant [options] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] -v, --version Print the version and exit. -h, --help Print this help. # ...  First VM Let&amp;rsquo;s start by crate a VM with vagrant.
-▶ vagrant init ubuntu/xenial64 ▶ vagrant up  The Vagrant command will download a box (the vagrant term for an VM image for a provider), create a VM based on this image and start it.</description>
+▶ vagrant Usage: vagrant [options] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] -v, --version Print the version and exit. -h, --help Print this help. # ... First VM Let&#39;s start by crate a VM with vagrant.
+▶ vagrant init ubuntu/xenial64 ▶ vagrant up The Vagrant command will download a box (the vagrant term for an VM image for a provider), create a VM based on this image and start it.</description>
     </item>
     
   </channel>
