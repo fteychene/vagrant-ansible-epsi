@@ -6,10 +6,73 @@
     <description>Recent content on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 10 Sep 2018 13:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 02 Dec 2020 16:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Getting Started with k3s</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/getting_started/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/getting_started/</guid>
+      <description>In this hands-on we will work using k3s, it&#39;s a lightweight Kubernetes distribution easy to install.
+We will not work with vanilla kubernetes as its installation could be challenging.
+Using k3s should not change your experience since we will stay at a beginer level and asics of this distribution work as a vanilla kubernetes.
+Setup a VM We will use Vagrant to spawn a VM a work with k3s.
+Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.</description>
+    </item>
+    
+    <item>
+      <title>Helm</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/helm/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/helm/</guid>
+      <description>TDB
+In the mean time you can look at official site</description>
+    </item>
+    
+    <item>
+      <title>Istio</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/istio/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/istio/</guid>
+      <description>TDB
+In the mean time you can look at official site</description>
+    </item>
+    
+    <item>
+      <title>Knative</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/knative/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/knative/</guid>
+      <description>TDB
+In the mean time you can look at official site</description>
+    </item>
+    
+    <item>
+      <title>Play with Heroku</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/</guid>
+      <description>Heroku is a platform as a service based on a managed container system, with integrated data services and a powerful ecosystem, for deploying and running modern apps.
+You can find instructions about this TP in resource&#39;s Heroku PDF</description>
+    </item>
+    
+    <item>
+      <title>Traefik</title>
+      <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/traefik/</link>
+      <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
+      
+      <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/traefik/</guid>
+      <description>TDB
+In the mean time you can look at official site</description>
+    </item>
     
     <item>
       <title>Playbook</title>

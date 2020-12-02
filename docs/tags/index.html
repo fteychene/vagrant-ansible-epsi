@@ -22,12 +22,16 @@
 <div class="page-container container-fluid">
 <div class="col-md-3 menu">
     <nav class="col-md-3">
+    
     <h3 class="home-link"><a href="https://fteychene.github.io/vagrant-ansible-epsi">Root</a></h3>
 
     
-    <div id="vagrant" class="open">
+    
+    
+    
+    <div id="vagrant" class="close">
         <h3 data-open="vagrant">Vagrant</h3>
-        <ul>
+        <ul  style="display: none;" >
             
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/">Getting Started with Vagrant</a></li>
             
@@ -38,9 +42,9 @@
     
 
     
-    <div id="ansible" class="open">
+    <div id="ansible" class="close">
         <h3 data-open="ansible">Ansible</h3>
-        <ul>
+        <ul  style="display: none;" >
             
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/getting_started/">Getting Started with Ansible</a></li>
             
@@ -52,16 +56,48 @@
     </div>
     
 
-    <div id="ressources" class="open">
-        <h3 data-open="ressources">Resources</h3>
-        <ul>
+    
+    <div id="kubernetes" class="close">
+        <h3 data-open="kubernetes">Kubernetes</h3>
+        <ul  style="display: none;" >
             
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/getting_started/">Getting Started with k3s</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/helm/">Helm</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/traefik/">Traefik</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/istio/">Istio</a></li>
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/knative/">Knative</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="paas" class="close">
+        <h3 data-open="paas">PaaS</h3>
+        <ul  style="display: none;" >
+            
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
+            
+        </ul>
+    </div>
+    
+
+    <div id="ressources" class="close">
+        <h3 data-open="ressources">Resources</h3>
+        <ul style="display: none;">
+            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
             
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
             <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
         </ul>
     </div>
     
+    
+
     
 
     

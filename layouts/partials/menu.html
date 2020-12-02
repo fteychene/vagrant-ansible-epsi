@@ -1,10 +1,14 @@
 <nav class="col-md-3">
+    
     <h3 class="home-link"><a href="{{ index .Site.Params "rootlink" | default .Site.BaseURL }}">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).root }}</a></h3>
 
+    {{ with .CurrentSection }}
+    {{ $sectionName := .Name}}
+    
     {{ with where $.Site.RegularPages "Section" "vagrant" }}
-    <div id="vagrant" class="open">
+    <div id="vagrant" class="close">
         <h3 data-open="vagrant">Vagrant</h3>
-        <ul>
+        <ul {{ if ne $sectionName "Vagrants"}} style="display: none;" {{ end }}>
             {{ range (.ByParam "order") }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
@@ -13,9 +17,9 @@
     {{ end }}
 
     {{ with where $.Site.RegularPages "Section" "ansible" }}
-    <div id="ansible" class="open">
+    <div id="ansible" class="close">
         <h3 data-open="ansible">Ansible</h3>
-        <ul>
+        <ul {{ if ne $sectionName "Ansibles"}} style="display: none;" {{ end }}>
             {{ range (.ByParam "order") }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
@@ -23,11 +27,33 @@
     </div>
     {{ end }}
 
-    <div id="ressources" class="open">
+    {{ with where $.Site.RegularPages "Section" "kubernetes" }}
+    <div id="kubernetes" class="close">
+        <h3 data-open="kubernetes">Kubernetes</h3>
+        <ul {{ if ne $sectionName "Kubernetes"}} style="display: none;" {{ end }}>
+            {{ range (.ByParam "order") }}
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+
+    {{ with where $.Site.RegularPages "Section" "paas" }}
+    <div id="paas" class="close">
+        <h3 data-open="paas">PaaS</h3>
+        <ul {{ if ne $sectionName "Paas"}} style="display: none;" {{ end }}>
+            {{ range (.ByParam "paas") }}
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+
+    <div id="ressources" class="close">
         <h3 data-open="ressources">Resources</h3>
-        <ul>
+        <ul style="display: none;">
             <li><a href="{{.Site.BaseURL}}/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="{{.Site.BaseURL}}/Projet.pdf" target="_blank">Project</a></li>
+            <!-- <li><a href="{{.Site.BaseURL}}/Projet.pdf" target="_blank">Project</a></li> -->
             <li><a href="{{.Site.BaseURL}}/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
             <li><a href="{{.Site.BaseURL}}/types_cloud.pdf" target="_blank">Types clouds</a></li>
         </ul>
@@ -53,5 +79,7 @@
             {{ end }}
         </ul>
     </div>
+    {{ end }}
+
     {{ end }}
 </nav>
