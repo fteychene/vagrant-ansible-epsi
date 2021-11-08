@@ -6,11 +6,7 @@
     <description>Recent content in Paas on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 02 Dec 2020 16:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/paas/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 02 Dec 2020 16:00:00 +0200</lastBuildDate><atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/paas/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Play with Heroku</title>
       <link>https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/</guid>
       <description>Heroku is a platform as a service based on a managed container system, with integrated data services and a powerful ecosystem, for deploying and running modern apps.
-You can find instructions about this TP in resource&#39;s Heroku PDF</description>
+You can find instructions about this TP in resource&amp;rsquo;s Heroku PDF</description>
     </item>
     
   </channel>

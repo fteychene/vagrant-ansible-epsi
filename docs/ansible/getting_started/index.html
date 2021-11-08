@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Getting Started with Ansible</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,22 +87,23 @@
 
 <h1>Getting Started with Ansible</h1>
 <h4>Published 09-09-2018 22:06:59</h4>
+
 <article>
     <h1 id="create-target-vm">Create target VM</h1>
 <p>Create a fresh VM with <code>vagrant</code> to use ansible on it with the following configuration</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/xenial64&#34;</span>
 
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">192.168.0.2</span><span style="color:#e6db74">&#34;</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;192.168.0.2&#34;</span>
 
   config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>forward_agent    <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
   config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>insert_key       <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
-  config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>private_key_path <span style="color:#f92672">=</span>  <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/.vagrant.d/insecure_private_key</span><span style="color:#e6db74">&#34;</span>,<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/.ssh/id_rsa</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">]</span>
+  config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>private_key_path <span style="color:#f92672">=</span>  <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;~/.vagrant.d/insecure_private_key&#34;</span>,<span style="color:#e6db74">&#34;~/.ssh/id_rsa&#34;</span><span style="color:#f92672">]</span>
   config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">:shell</span>, <span style="color:#e6db74">privileged</span>: <span style="color:#66d9ef">false</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>s<span style="color:#f92672">|</span>
-    ssh_pub_key <span style="color:#f92672">=</span> <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>readlines(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">Dir</span><span style="color:#f92672">.</span>home<span style="color:#e6db74">}</span><span style="color:#e6db74">/.ssh/id_rsa.pub</span><span style="color:#e6db74">&#34;</span>)<span style="color:#f92672">.</span>first<span style="color:#f92672">.</span>strip
+    ssh_pub_key <span style="color:#f92672">=</span> <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>readlines(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">Dir</span><span style="color:#f92672">.</span>home<span style="color:#e6db74">}</span><span style="color:#e6db74">/.ssh/id_rsa.pub&#34;</span>)<span style="color:#f92672">.</span>first<span style="color:#f92672">.</span>strip
     s<span style="color:#f92672">.</span>inline <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;&lt;-SHELL
 </span><span style="color:#e6db74"></span>      echo <span style="color:#75715e">#{ssh_pub_key} &gt;&gt; /home/$USER/.ssh/authorized_keys</span>
-      sudo bash <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo </span><span style="color:#e6db74">#{</span>ssh_pub_key<span style="color:#e6db74">}</span><span style="color:#e6db74"> &gt;&gt; /root/.ssh/authorized_keys</span><span style="color:#e6db74">&#34;</span>
+      sudo bash <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#34;echo </span><span style="color:#e6db74">#{</span>ssh_pub_key<span style="color:#e6db74">}</span><span style="color:#e6db74"> &gt;&gt; /root/.ssh/authorized_keys&#34;</span>
       sudo apt<span style="color:#f92672">-</span>get update
       sudo apt<span style="color:#f92672">-</span>get install <span style="color:#f92672">-</span>y python
     <span style="color:#66d9ef">SHELL</span>
@@ -135,16 +115,16 @@ This configuration add your local machine ssh keys to the accepted configuration
 <p>The instruction for installation can be found <a href="https://docs.ansible.com/ansible/2.5/installation_guide/intro_installation.html">here</a></p>
 <h1 id="inventory">Inventory</h1>
 <p>Ansible works against multiple systems in your infrastructure at the same time. It does this by selecting portions of systems listed in Ansible’s inventory, which defaults to being saved in the location <code>/etc/ansible/hosts</code>. You can specify a different inventory file using the -i <!-- raw HTML omitted --> option on the command line.</p>
-<p>To work on your new configured VM,  add it's ip to the ansible inventory file <code>/etc/ansible/hosts</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo 192.168.0.2 &gt;&gt; /etc/ansible/hosts
-</code></pre></div><p>By doing this you add your VM to the global inventory of ansible in the all group (if you don't have already some groupe configured in this file &hellip;).</p>
+<p>To work on your new configured VM,  add it&rsquo;s ip to the ansible inventory file <code>/etc/ansible/hosts</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo 192.168.0.2 &gt;&gt; /etc/ansible/hosts
+</code></pre></div><p>By doing this you add your VM to the global inventory of ansible in the all group (if you don&rsquo;t have already some groupe configured in this file &hellip;).</p>
 <p>You can test the connection to your VM with the ansible command, using the <code>ping</code> module.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ansible all -u vagrant -m ping 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ansible all -u vagrant -m ping 
 </code></pre></div><p>The <code>-u</code> option define the suer to connect with on the VM.<br>
 Th <code>-m</code> define the module to be executed on VMs from the all group</p>
 <h1 id="connection-user">Connection user</h1>
 <p>If you would like to access sudo mode, there are also flags to do that:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># as bruce</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># as bruce</span>
 $ ansible all -m ping -u bruce
 <span style="color:#75715e"># as bruce, sudoing to root</span>
 $ ansible all -m ping -u bruce -b
@@ -153,7 +133,7 @@ $ ansible all -m ping -u bruce -b --become-user batman
 </code></pre></div><p>(The sudo implementation is changeable in Ansible’s configuration file if you happen to want to use a sudo replacement. Flags passed to sudo (like -H) can also be set there.)</p>
 <h1 id="ad-hoc-commands">Ad-hoc commands</h1>
 <p>Now run a live command on all of your nodes:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ansible all -u vagrant -a <span style="color:#e6db74">&#34;/bin/echo hello&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ansible all -u vagrant -a <span style="color:#e6db74">&#34;/bin/echo hello&#34;</span>
 </code></pre></div><p>Congratulations! You’ve just contacted your nodes with Ansible.<br>
 It’s soon going to be time to:</p>
 <ul>

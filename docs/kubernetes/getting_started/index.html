@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Getting Started with k3s</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,57 +87,58 @@
 
 <h1>Getting Started with k3s</h1>
 <h4>Published 12-02-2020 16:00:00</h4>
+
 <article>
-    <p>In this hands-on we will work using <a href="https://k3s.io/">k3s</a>, it's a lightweight Kubernetes distribution easy to install.<br>
+    <p>In this hands-on we will work using <a href="https://k3s.io/">k3s</a>, it&rsquo;s a lightweight Kubernetes distribution easy to install.<br>
 We will not work with vanilla kubernetes as its installation could be challenging.</p>
 <p>Using k3s should not change your experience since we will stay at a beginer level and asics of this distribution work as a vanilla kubernetes.</p>
 <h1 id="setup-a-vm">Setup a VM</h1>
 <p>We will use Vagrant to spawn a VM a work with k3s.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
-    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/bionic64</span><span style="color:#e6db74">&#34;</span>
-    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">kubemaster</span><span style="color:#e6db74">&#34;</span>
-    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network  <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">10.0.0.11</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/bionic64&#34;</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kubemaster&#34;</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network  <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;10.0.0.11&#34;</span>
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>Start the VM and ssh into it</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vagrant up
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vagrant up
 vagrant ssh
 </code></pre></div><h1 id="install-k3s">Install k3s</h1>
 <p>To install k3s from the install scripty (not recommended in production) :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -sfL https://get.k3s.io | sh -
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -sfL https://get.k3s.io | sh -
 </code></pre></div><p>Wait for the script to finish then watch nodes through kubernetes until the node is Ready :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get nodes -w
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get nodes -w
 </code></pre></div><p>Congratulation you have now a working kubernetes cluster ready to work on.<br>
 If you want to learn more about Kubernetes components read <a href="https://kubernetes.io/docs/concepts/overview/components/">the doc</a>.</p>
 <h1 id="pods">Pods</h1>
 <p>In kubernetes world, containers running are named pods, there are more than just running container and I invite you to read the <a href="https://kubernetes.io/docs/concepts/workloads/pods/">official documentation</a> about it.</p>
-<p>Let's start by starting a Job with a pod from a busybox that just print something and sleep.
+<p>Let&rsquo;s start by starting a Job with a pod from a busybox that just print something and sleep.
 Create a file <code>basic.yml</code> with content :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">apiVersion: batch/v1
-kind: Job
-metadata:
-  name: hello
-spec:
-  template:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">batch/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Job</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">template</span>:
     <span style="color:#75715e"># This is the pod template</span>
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [<span style="color:#e6db74">&#39;sh&#39;</span>, <span style="color:#e6db74">&#39;-c&#39;</span>, <span style="color:#e6db74">&#39;echo &#34;Hello, Kubernetes!&#34; &amp;&amp; sleep 3600&#39;</span>]
-      restartPolicy: OnFailure
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+        <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#39;sh&#39;</span>, <span style="color:#e6db74">&#39;-c&#39;</span>, <span style="color:#e6db74">&#39;echo &#34;Hello, Kubernetes!&#34; &amp;&amp; sleep 3600&#39;</span>]
+      <span style="color:#f92672">restartPolicy</span>: <span style="color:#ae81ff">OnFailure</span>
     <span style="color:#75715e"># The pod template ends here</span>
 </code></pre></div><p>And apply it by running</p>
-<pre><code>sudo kubectl apply -f basic.yml
-</code></pre><p>Congratulation, you have now launched a Job in Kubernetes ! Let's have a look at that.</p>
-<p>Let's start by looking at our pods by running</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get pod
-</code></pre></div><p>You should seen a pod named <code>hello-xxxxx</code>, that's your pod 👏.<br>
+<pre tabindex="0"><code>sudo kubectl apply -f basic.yml
+</code></pre><p>Congratulation, you have now launched a Job in Kubernetes ! Let&rsquo;s have a look at that.</p>
+<p>Let&rsquo;s start by looking at our pods by running</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get pod
+</code></pre></div><p>You should seen a pod named <code>hello-xxxxx</code>, that&rsquo;s your pod 👏.<br>
 We could look at its logs by running.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl logs &lt;pod-name&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl logs &lt;pod-name&gt;
 </code></pre></div><p>If I run it I got :</p>
-<pre><code>vagrant@kubemaster:~$ sudo kubectl logs hello-7kn7h
+<pre tabindex="0"><code>vagrant@kubemaster:~$ sudo kubectl logs hello-7kn7h
 Hello, Kubernetes!
-</code></pre><p>And that's what we want.</p>
+</code></pre><p>And that&rsquo;s what we want.</p>
 <h1 id="exercice">Exercice</h1>
 <p>Create a job to run a busybox printing in the log a message configured by environment variable.<br>
 Search in the documentation of kubernetes what need to be modify based on <code>basic.yml</code> file.</p>
@@ -167,14 +147,14 @@ Search in the documentation of kubernetes what need to be modify based on <code>
 <h1 id="deployments">Deployments</h1>
 <p>If pods are the basic unit in kubernetes, Deployment are the main unit for pushing deployment units.
 In the previous section to run a pod we start a Job, a Job is a one of pod execution, Deployments are a deployment unit to maintain a set of pod up &amp; running.</p>
-<p>Let's create a simple deployment without a file :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl create deployment kubernetes-bootcamp --image<span style="color:#f92672">=</span>gcr.io/google-samples/kubernetes-bootcamp:v1
-</code></pre></div><p>Let's have a look at it :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get deployments
+<p>Let&rsquo;s create a simple deployment without a file :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl create deployment kubernetes-bootcamp --image<span style="color:#f92672">=</span>gcr.io/google-samples/kubernetes-bootcamp:v1
+</code></pre></div><p>Let&rsquo;s have a look at it :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get deployments
 </code></pre></div><p>We see our deployment 👍</p>
 <p>Search associated pod name.<br>
-When you have it let's se what we deployed. There is a <code>kubectl port-forward</code> that permit to redirect network form a port on the host to a pod (or a service) let's have a look.</p>
-<pre><code>sudo kubectl port-forward &lt;pod-name&gt; 8080:8080 --address=0.0.0.0
+When you have it let&rsquo;s se what we deployed. There is a <code>kubectl port-forward</code> that permit to redirect network form a port on the host to a pod (or a service) let&rsquo;s have a look.</p>
+<pre tabindex="0"><code>sudo kubectl port-forward &lt;pod-name&gt; 8080:8080 --address=0.0.0.0
 </code></pre><p>This command redirect the traffic from your host on 8080 listening to 0.0.0.0 (as from everywhere) into the port 8080 of the pod configured.<br>
 Now we have this command running you can open your browser on your machine and go to http://10.0.0.11:8080 and you should see waht the application print.</p>
 <h1 id="exercice-1">Exercice</h1>
@@ -183,36 +163,36 @@ Now we have this command running you can open your browser on your machine and g
 <p>An abstract way to expose an application running on a set of Pods as a network service.<br>
 Take some time to read the <a href="https://kubernetes.io/docs/concepts/services-networking/service/">official documentation</a></p>
 <p>Next, let’s list the current Services from our cluster:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get services
-</code></pre></div><p>Let's expose our previous deployment.</p>
-<pre><code>sudo kubectl expose deployment/kubernetes-bootcamp --type=&quot;NodePort&quot; --port 8080
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get services
+</code></pre></div><p>Let&rsquo;s expose our previous deployment.</p>
+<pre tabindex="0"><code>sudo kubectl expose deployment/kubernetes-bootcamp --type=&quot;NodePort&quot; --port 8080
 </code></pre><p>We just created a service of type NodePort (aka route all the traffic on a port from the host into deployment kubernetes-bootcamp).</p>
 <p>We cand look at our service by running :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get service
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl get service
 </code></pre></div><p>On my test run it look like</p>
-<pre><code>sudo kubectl get service
+<pre tabindex="0"><code>sudo kubectl get service
 NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 kubernetes            ClusterIP   10.43.0.1       &lt;none&gt;        443/TCP          148m
 kubernetes-bootcamp   NodePort    10.43.246.196   &lt;none&gt;        8080:30325/TCP   2m21s
 </code></pre><p>We know have a service that expose our deployment as a port, in my example : 30325.
 Open now a browser on your machine and opne http://10.0.0.11/30325 (change with your own port) and your should see the application.</p>
-<p>Let's look at how the service choose to which pod it send the traffic to.</p>
-<pre><code>sudo kubectl describe svc kubernetes-bootcamp
-</code></pre><p>You should see a line <code>Selector:                 app=kubernetes-bootcamp</code>. It's this line that define how a service choose the pods to send to network.
+<p>Let&rsquo;s look at how the service choose to which pod it send the traffic to.</p>
+<pre tabindex="0"><code>sudo kubectl describe svc kubernetes-bootcamp
+</code></pre><p>You should see a line <code>Selector:                 app=kubernetes-bootcamp</code>. It&rsquo;s this line that define how a service choose the pods to send to network.
 By doing a selection based on their labels. To be sure about this, look as the description of the kuberneets-bootcamp pod to see that the label <code>app</code> exist with the value <code>kubernetes-bootcamp</code>.</p>
 <h1 id="exercice-2">Exercice</h1>
 <p>Create a <code>service.yml</code> file that create the same service that we just created.</p>
 <h1 id="scale">Scale</h1>
-<p>Let's scale our deployment.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl scale deployments/kubernetes-bootcamp --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
+<p>Let&rsquo;s scale our deployment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl scale deployments/kubernetes-bootcamp --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
 </code></pre></div><p>If you look at the pods, now the kubernetes-bootcamp is deployed with 4 pods each running the application.</p>
-<p>Let's look at how the service manage this. let's run a for loop and a curl to reuse the service (don't forget to set your port):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> i in <span style="color:#f92672">{</span>1..10<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span> curl http://localhost:30325/; <span style="color:#66d9ef">done</span>
+<p>Let&rsquo;s look at how the service manage this. let&rsquo;s run a for loop and a curl to reuse the service (don&rsquo;t forget to set your port):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> i in <span style="color:#f92672">{</span>1..10<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span> curl http://localhost:30325/; <span style="color:#66d9ef">done</span>
 </code></pre></div><p>We see that the service load balance between the pods the calls and adapted to our scale. This is possible du to the selection of the pods with labels.</p>
 <h1 id="update">Update</h1>
 <p>We can edit the deployment to change all the parameters. And we could also change the image to run.<br>
-Let's try that and what happen by watching the pods :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp<span style="color:#f92672">=</span>jocatalin/kubernetes-bootcamp:v2
+Let&rsquo;s try that and what happen by watching the pods :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp<span style="color:#f92672">=</span>jocatalin/kubernetes-bootcamp:v2
 sudo kubectl get pods -w
 </code></pre></div><p>We see that the pods are created then the old one are terminated.<br>
 If we run a <code>curl http://localhost:30325/;</code> we should see that the server respond a <code>v=2</code> text.</p>

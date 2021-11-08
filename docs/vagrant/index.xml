@@ -6,11 +6,7 @@
     <description>Recent content in Vagrants on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 09 Sep 2018 19:06:59 +0200</lastBuildDate>
-    
-	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 09 Sep 2018 19:06:59 +0200</lastBuildDate><atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/vagrant/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vagrant Multi machine</title>
       <link>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/multi_machine/</link>
@@ -30,7 +26,7 @@ Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.provision &amp;#34;
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/vagrant/getting_started/</guid>
       <description>Installation Installation instruction can be found on this page
 You can verify the installation by running the vagrant command.
-▶ vagrant Usage: vagrant [options] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] -v, --version Print the version and exit. -h, --help Print this help. # ... First VM Let&#39;s start by crate a VM with vagrant.
+▶ vagrant Usage: vagrant [options] &amp;lt;command&amp;gt; [&amp;lt;args&amp;gt;] -v, --version Print the version and exit. -h, --help Print this help. # ... First VM Let&amp;rsquo;s start by crate a VM with vagrant.
 ▶ vagrant init ubuntu/xenial64 ▶ vagrant up The Vagrant command will download a box (the vagrant term for an VM image for a provider), create a VM based on this image and start it.</description>
     </item>
     

@@ -5,10 +5,6 @@
     <link>https://fteychene.github.io/vagrant-ansible-epsi/categories/</link>
     <description>Recent content in Categories on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>fr-FR</language>
-    
-	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>fr-FR</language><atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

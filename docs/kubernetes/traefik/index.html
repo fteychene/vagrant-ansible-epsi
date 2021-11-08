@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Traefik</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,9 +87,91 @@
 
 <h1>Traefik</h1>
 <h4>Published 12-02-2020 16:00:00</h4>
+
 <article>
-    <p>TDB</p>
-<p>In the mean time you can look at <a href="https://traefik.io/traefik/">official site</a></p>
+    <p>Traefik is a load balancer with dynamic configuration reload that can be plugged with various backend to enable routing automatically and it work with Kubernetes.</p>
+<p>Traefik is installed by default on <code>k3s</code> clusters so we could use it.</p>
+<h1 id="accessing-dashboard">Accessing dashboard</h1>
+<p>Traefik dashboard is not exposed through the exterior of the cluster by default. We need to add a <code>IngressRoute</code> configuration to enable it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">traefik.containo.us/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">IngressRoute</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">traefik-external-dashboard</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">kube-system</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">entryPoints</span>:
+  - <span style="color:#ae81ff">web</span>
+  <span style="color:#f92672">routes</span>:
+  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Rule</span>
+    <span style="color:#f92672">match</span>: <span style="color:#ae81ff">PathPrefix(`/dashboard`) || PathPrefix(`/api`)</span>
+    <span style="color:#f92672">services</span>:
+    - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">TraefikService</span>
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">api@internal</span>
+</code></pre></div><p>Apply this ressource in your cluster and then test to access the Traefik dashboard on http://10.0.0.11/dashboard/#/.<br>
+You should access the traefik dashboard.</p>
+<p><img src="traefik_dash.png" alt="traefik dashboard"></p>
+<h1 id="expose-a-service">Expose a service</h1>
+<p>Let&rsquo;s first create a deployment with multiple replicas.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whoami-deployment</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">whoami</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">whoami</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">whoami</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whoami</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">containous/whoami:v1.5.0</span>
+        <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">IfNotPresent</span>
+        <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>Check the deployment and that all the pods are healthy.</p>
+<p>Now that we have our application deployed, let&rsquo;s create a kubernetes Service to provide an entrypoint in the server for our application.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whoami-service</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">whoami</span>
+  <span style="color:#f92672">ports</span>:
+    - <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>At this point, it&rsquo;s standard Kubernetes ressoucres. We created an application deployment with 3 replicas and a service to be able to communicate in the cluster with this application.<br>
+Now let&rsquo;s create a specific traefik <code>IngressRoute</code> to expose our Service to the external world.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">traefik.containo.us/v1alpha1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">IngressRoute</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whoami-ingress</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">entryPoints</span>:
+    - <span style="color:#ae81ff">web</span>
+  <span style="color:#f92672">routes</span>:
+  - <span style="color:#f92672">match</span>: <span style="color:#ae81ff">PathPrefix(`/whoami`)</span>
+    <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Rule</span>
+    <span style="color:#f92672">services</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whoami-service</span>
+      <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>As you can see in the <code>apiVersion</code> this ressources is not a standard Kubernetes one, it&rsquo;s a Traefik specific one.<br>
+Kubernetes allow third party system to create and manage ressources in the cluster with a mecanism named <code>Custom Ressource Definition</code>. We will not cover this in this course, but you could look about it by yourself.</p>
+<p>This ressource create a descriptor for an <code>IngressRoute</code> as in route for incoming traffic to define some rule and send them to a target service.<br>
+Here we defined that all request atching a path starting with <code>/whoami</code> should be sent to <code>whoami-service</code>.</p>
+<p>We could check that our application is availble from the outside of our cluster : http://10.0.0.11/whoami<br>
+Check also the Treafik dashboard to look on how it&rsquo;s configured inside Traefik.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>We just have used a solution of Ingress controller that is available on Kubernetes. There are other solutions avaiables like NGinx, HAProxy, &hellip;  You can find a more exhaustive list on the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">official documentation</a></p>
+<p>To find more information on Traefik, please look at the <a href="https://traefik.io/traefik/">official website</a></p>
 
 </article>
 

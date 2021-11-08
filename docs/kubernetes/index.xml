@@ -6,18 +6,14 @@
     <description>Recent content in Kubernetes on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 02 Dec 2020 16:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 02 Dec 2020 16:00:00 +0200</lastBuildDate><atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting Started with k3s</title>
       <link>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/getting_started/</link>
       <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
       
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/getting_started/</guid>
-      <description>In this hands-on we will work using k3s, it&#39;s a lightweight Kubernetes distribution easy to install.
+      <description>In this hands-on we will work using k3s, it&amp;rsquo;s a lightweight Kubernetes distribution easy to install.
 We will not work with vanilla kubernetes as its installation could be challenging.
 Using k3s should not change your experience since we will stay at a beginer level and asics of this distribution work as a vanilla kubernetes.
 Setup a VM We will use Vagrant to spawn a VM a work with k3s.
@@ -30,8 +26,9 @@ Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.</description>
       <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
       
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/helm/</guid>
-      <description>TDB
-In the mean time you can look at official site</description>
+      <description>Installing Helm Lookup the installation steps from the documentation here
+Using Helm This guide explains the basics of using Helm to manage packages on your Kubernetes cluster.
+Three Big Concepts A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster. Think of it like the Kubernetes equivalent of a Homebrew formula, an Apt dpkg, or a Yum RPM file.</description>
     </item>
     
     <item>
@@ -60,8 +57,10 @@ In the mean time you can look at official site</description>
       <pubDate>Wed, 02 Dec 2020 16:00:00 +0200</pubDate>
       
       <guid>https://fteychene.github.io/vagrant-ansible-epsi/kubernetes/traefik/</guid>
-      <description>TDB
-In the mean time you can look at official site</description>
+      <description>Traefik is a load balancer with dynamic configuration reload that can be plugged with various backend to enable routing automatically and it work with Kubernetes.
+Traefik is installed by default on k3s clusters so we could use it.
+Accessing dashboard Traefik dashboard is not exposed through the exterior of the cluster by default. We need to add a IngressRoute configuration to enable it.
+apiVersion: traefik.containo.us/v1alpha1 kind: IngressRoute metadata: name: traefik-external-dashboard namespace: kube-system spec: entryPoints: - web routes: - kind: Rule match: PathPrefix(`/dashboard`) || PathPrefix(`/api`) services: - kind: TraefikService name: api@internal Apply this ressource in your cluster and then test to access the Traefik dashboard on http://10.</description>
     </item>
     
   </channel>

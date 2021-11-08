@@ -6,11 +6,7 @@
     <description>Recent content in Ansibles on Vagrant Ansible Getting Started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 10 Sep 2018 13:30:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 10 Sep 2018 13:30:00 +0200</lastBuildDate><atom:link href="https://fteychene.github.io/vagrant-ansible-epsi/ansible/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Playbook</title>
       <link>https://fteychene.github.io/vagrant-ansible-epsi/ansible/playbook/</link>

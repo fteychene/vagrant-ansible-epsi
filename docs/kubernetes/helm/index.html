@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Helm</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,9 +87,286 @@
 
 <h1>Helm</h1>
 <h4>Published 12-02-2020 16:00:00</h4>
+
 <article>
-    <p>TDB</p>
-<p>In the mean time you can look at <a href="https://helm.sh/">official site</a></p>
+    <h1 id="installing-helm">Installing Helm</h1>
+<p>Lookup the installation steps from the documentation <a href="https://helm.sh/docs/intro/install/">here</a></p>
+<h1 id="using-helm">Using Helm</h1>
+<p>This guide explains the basics of using Helm to manage packages on your Kubernetes cluster.</p>
+<h2 id="three-big-concepts">Three Big Concepts</h2>
+<p>A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster. Think of it like the Kubernetes equivalent of a Homebrew formula, an Apt dpkg, or a Yum RPM file.</p>
+<p>A Repository is the place where charts can be collected and shared. It&rsquo;s like Perl&rsquo;s CPAN archive or the Fedora Package Database, but for Kubernetes packages.</p>
+<p>A Release is an instance of a chart running in a Kubernetes cluster. One chart can often be installed many times into the same cluster. And each time it is installed, a new release is created. Consider a MySQL chart. If you want two databases running in your cluster, you can install that chart twice. Each one will have its own release, which will in turn have its own release name.</p>
+<p>With these concepts in mind, we can now explain Helm like this:</p>
+<p>Helm installs charts into Kubernetes, creating a new release for each installation. And to find new charts, you can search Helm chart repositories.
+<code>helm search</code>: Finding Charts</p>
+<p>Helm comes with a powerful search command. It can be used to search two different types of source:</p>
+<ul>
+<li><code>helm search hub</code> searches the Artifact Hub, which lists helm charts from dozens of different repositories.</li>
+<li><code>helm search repo</code> searches the repositories that you have added to your local helm client (with helm repo add). This search is done over local data, and no public network connection is needed.</li>
+</ul>
+<p>You can find publicly available charts by running helm search hub:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm search hub wordpress
+URL                                                 CHART VERSION APP VERSION DESCRIPTION
+https://hub.helm.sh/charts/bitnami/wordpress        7.6.7         5.2.4       Web publishing platform <span style="color:#66d9ef">for</span> building blogs and ...
+https://hub.helm.sh/charts/presslabs/wordpress-...  v0.6.3        v0.6.3      Presslabs WordPress Operator Helm Chart
+https://hub.helm.sh/charts/presslabs/wordpress-...  v0.7.1        v0.7.1      A Helm chart <span style="color:#66d9ef">for</span> deploying a WordPress site on ...
+</code></pre></div><p>The above searches for all wordpress charts on Artifact Hub.</p>
+<p>With no filter, <code>helm search hub</code> shows you all of the available charts.</p>
+<p>Using <code>helm search repo</code>, you can find the names of the charts in repositories you have already added:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm repo add brigade https://brigadecore.github.io/charts
+<span style="color:#e6db74">&#34;brigade&#34;</span> has been added to your repositories
+$ helm search repo brigade
+NAME                          CHART VERSION APP VERSION DESCRIPTION
+brigade/brigade               1.3.2         v1.2.1      Brigade provides event-driven scripting of Kube...
+brigade/brigade-github-app    0.4.1         v0.2.1      The Brigade GitHub App, an advanced gateway <span style="color:#66d9ef">for</span>...
+brigade/brigade-github-oauth  0.2.0         v0.20.0     The legacy OAuth GitHub Gateway <span style="color:#66d9ef">for</span> Brigade
+brigade/brigade-k8s-gateway   0.1.0                     A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+brigade/brigade-project       1.0.0         v1.0.0      Create a Brigade project
+brigade/kashti                0.4.0         v0.4.0      A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+</code></pre></div><p>Helm search uses a fuzzy string matching algorithm, so you can type parts of words or phrases:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm search repo kash
+NAME            CHART VERSION APP VERSION DESCRIPTION
+brigade/kashti  0.4.0         v0.4.0      A Helm chart <span style="color:#66d9ef">for</span> Kubernetes
+</code></pre></div><p>Search is a good way to find available packages. Once you have found a package you want to install, you can use <code>helm install</code> to install it.</p>
+<h2 id="helm-install-installing-a-package"><code>helm install</code>: Installing a Package</h2>
+<p>To install a new package, use the helm install command. At its simplest, it takes two arguments: A release name that you pick, and the name of the chart you want to install.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm install happy-panda bitnami/wordpress
+NAME: happy-panda
+LAST DEPLOYED: Tue Jan <span style="color:#ae81ff">26</span> 10:27:17 <span style="color:#ae81ff">2021</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span style="color:#ae81ff">1</span>
+NOTES:
+** Please be patient <span style="color:#66d9ef">while</span> the chart is being deployed **
+
+Your WordPress site can be accessed through the following DNS name from within your cluster:
+
+    happy-panda-wordpress.default.svc.cluster.local <span style="color:#f92672">(</span>port 80<span style="color:#f92672">)</span>
+
+To access your WordPress site from outside the cluster follow the steps below:
+
+1. Get the WordPress URL by running these commands:
+
+  NOTE: It may take a few minutes <span style="color:#66d9ef">for</span> the LoadBalancer IP to be available.
+        Watch the status with: <span style="color:#e6db74">&#39;kubectl get svc --namespace default -w happy-panda-wordpress&#39;</span>
+
+   export SERVICE_IP<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get svc --namespace default happy-panda-wordpress --template <span style="color:#e6db74">&#34;{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}&#34;</span><span style="color:#66d9ef">)</span>
+   echo <span style="color:#e6db74">&#34;WordPress URL: http://</span>$SERVICE_IP<span style="color:#e6db74">/&#34;</span>
+   echo <span style="color:#e6db74">&#34;WordPress Admin URL: http://</span>$SERVICE_IP<span style="color:#e6db74">/admin&#34;</span>
+
+2. Open a browser and access WordPress using the obtained URL.
+
+3. Login with the following credentials below to see your blog:
+
+  echo Username: user
+  echo Password: <span style="color:#66d9ef">$(</span>kubectl get secret --namespace default happy-panda-wordpress -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.wordpress-password}&#34;</span> | base64 --decode<span style="color:#66d9ef">)</span>
+</code></pre></div><p>Now the wordpress chart is installed. Note that installing a chart creates a new release object. The release above is named <code>happy-panda</code>. (If you want Helm to generate a name for you, leave off the release name and use <code>--generate-name</code>.)</p>
+<p>During installation, the helm client will print useful information about which resources were created, what the state of the release is, and also whether there are additional configuration steps you can or should take.</p>
+<p>Helm installs resources in the following order:</p>
+<ul>
+<li>Namespace</li>
+<li>NetworkPolicy</li>
+<li>ResourceQuota</li>
+<li>LimitRange</li>
+<li>PodSecurityPolicy</li>
+<li>PodDisruptionBudget</li>
+<li>ServiceAccount</li>
+<li>Secret</li>
+<li>SecretList</li>
+<li>ConfigMap</li>
+<li>StorageClass</li>
+<li>PersistentVolume</li>
+<li>PersistentVolumeClaim</li>
+<li>CustomResourceDefinition</li>
+<li>ClusterRole</li>
+<li>ClusterRoleList</li>
+<li>ClusterRoleBinding</li>
+<li>ClusterRoleBindingList</li>
+<li>Role</li>
+<li>RoleList</li>
+<li>RoleBinding</li>
+<li>RoleBindingList</li>
+<li>Service</li>
+<li>DaemonSet</li>
+<li>Pod</li>
+<li>ReplicationController</li>
+<li>ReplicaSet</li>
+<li>Deployment</li>
+<li>HorizontalPodAutoscaler</li>
+<li>StatefulSet</li>
+<li>Job</li>
+<li>CronJob</li>
+<li>Ingress</li>
+<li>APIService</li>
+</ul>
+<p>Helm does not wait until all of the resources are running before it exits. Many charts require Docker images that are over 600M in size, and may take a long time to install into the cluster.</p>
+<p>To keep track of a release&rsquo;s state, or to re-read configuration information, you can use <code>helm status</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm status happy-panda
+NAME: happy-panda
+LAST DEPLOYED: Tue Jan <span style="color:#ae81ff">26</span> 10:27:17 <span style="color:#ae81ff">2021</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span style="color:#ae81ff">1</span>
+NOTES:
+** Please be patient <span style="color:#66d9ef">while</span> the chart is being deployed **
+
+Your WordPress site can be accessed through the following DNS name from within your cluster:
+
+    happy-panda-wordpress.default.svc.cluster.local <span style="color:#f92672">(</span>port 80<span style="color:#f92672">)</span>
+
+To access your WordPress site from outside the cluster follow the steps below:
+
+1. Get the WordPress URL by running these commands:
+
+  NOTE: It may take a few minutes <span style="color:#66d9ef">for</span> the LoadBalancer IP to be available.
+        Watch the status with: <span style="color:#e6db74">&#39;kubectl get svc --namespace default -w happy-panda-wordpress&#39;</span>
+
+   export SERVICE_IP<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get svc --namespace default happy-panda-wordpress --template <span style="color:#e6db74">&#34;{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}&#34;</span><span style="color:#66d9ef">)</span>
+   echo <span style="color:#e6db74">&#34;WordPress URL: http://</span>$SERVICE_IP<span style="color:#e6db74">/&#34;</span>
+   echo <span style="color:#e6db74">&#34;WordPress Admin URL: http://</span>$SERVICE_IP<span style="color:#e6db74">/admin&#34;</span>
+
+2. Open a browser and access WordPress using the obtained URL.
+
+3. Login with the following credentials below to see your blog:
+
+  echo Username: user
+  echo Password: <span style="color:#66d9ef">$(</span>kubectl get secret --namespace default happy-panda-wordpress -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.wordpress-password}&#34;</span> | base64 --decode<span style="color:#66d9ef">)</span>
+</code></pre></div><p>The above shows the current state of your release.</p>
+<h3 id="customizing-the-chart-before-installing">Customizing the Chart Before Installing</h3>
+<p>Installing the way we have here will only use the default configuration options for this chart. Many times, you will want to customize the chart to use your preferred configuration.</p>
+<p>To see what options are configurable on a chart, use helm show values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm show values bitnami/wordpress
+<span style="color:#75715e">## Global Docker image parameters</span>
+<span style="color:#75715e">## Please, note that this will override the image parameters, including dependencies, configured to use the global value</span>
+<span style="color:#75715e">## Current available global Docker image parameters: imageRegistry and imagePullSecrets</span>
+<span style="color:#75715e">##</span>
+<span style="color:#75715e"># global:</span>
+<span style="color:#75715e">#   imageRegistry: myRegistryName</span>
+<span style="color:#75715e">#   imagePullSecrets:</span>
+<span style="color:#75715e">#     - myRegistryKeySecretName</span>
+<span style="color:#75715e">#   storageClass: myStorageClass</span>
+
+<span style="color:#75715e">## Bitnami WordPress image version</span>
+<span style="color:#75715e">## ref: https://hub.docker.com/r/bitnami/wordpress/tags/</span>
+<span style="color:#75715e">##</span>
+image:
+  registry: docker.io
+  repository: bitnami/wordpress
+  tag: 5.6.0-debian-10-r35
+  <span style="color:#f92672">[</span>..<span style="color:#f92672">]</span>
+</code></pre></div><p>You can then override any of these settings in a YAML formatted file, and then pass that file during installation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#39;{mariadb.auth.database: user0db, mariadb.auth.username: user0}&#39;</span> &gt; values.yaml
+$ helm install -f values.yaml bitnami/wordpress --generate-name
+</code></pre></div><p>The above will create a default MariaDB user with the name user0, and grant this user access to a newly created user0db database, but will accept all the rest of the defaults for that chart.</p>
+<p>There are two ways to pass configuration data during install:</p>
+<ul>
+<li><code>--values</code> (or <code>-f</code>): Specify a YAML file with overrides. This can be specified multiple times and the rightmost file will take precedence</li>
+<li><code>--set</code>: Specify overrides on the command line.</li>
+</ul>
+<p>If both are used, <code>--set</code> values are merged into <code>--values</code> with higher precedence. Overrides specified with <code>--set</code> are persisted in a ConfigMap. Values that have been <code>--set</code> can be viewed for a given release with helm get values <!-- raw HTML omitted -->. Values that have been <code>--set</code> can be cleared by running helm upgrade with <code>--reset-values</code> specified.</p>
+<h3 id="the-format-and-limitations-of---set">The Format and Limitations of <code>--set</code></h3>
+<p>The <code>--set</code> option takes zero or more name/value pairs. At its simplest, it is used like this: <code>--set name=value</code>. The YAML equivalent of that is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">value</span>
+</code></pre></div><p>Multiple values are separated by , characters. So <code>--set a=b,c=d</code> becomes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">a</span>: <span style="color:#ae81ff">b</span>
+<span style="color:#f92672">c</span>: <span style="color:#ae81ff">d</span>
+</code></pre></div><p>More complex expressions are supported. For example, <code>--set outer.inner=value</code> is translated into this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">outer</span>:
+  <span style="color:#f92672">inner</span>: <span style="color:#ae81ff">value</span>
+</code></pre></div><p>Lists can be expressed by enclosing values in <code>{</code> and <code>}</code>. For example, <code>--set name={a, b, c}</code> translates to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>:
+  - <span style="color:#ae81ff">a</span>
+  - <span style="color:#ae81ff">b</span>
+  - <span style="color:#ae81ff">c</span>
+</code></pre></div><p>As of Helm 2.5.0, it is possible to access list items using an array index syntax. For example, <code>--set servers[0].port=80</code> becomes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">servers</span>:
+  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><p>Multiple values can be set this way. The line <code>--set servers[0].port=80,servers[0].host=example</code> becomes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">servers</span>:
+  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+    <span style="color:#f92672">host</span>: <span style="color:#ae81ff">example</span>
+</code></pre></div><p>Sometimes you need to use special characters in your <code>--set</code> lines. You can use a backslash to escape the characters; <code>--set name=value1\,value2</code> will become:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;value1,value2&#34;</span>
+</code></pre></div><p>Similarly, you can escape dot sequences as well, which may come in handy when charts use the toYaml function to parse annotations, labels and node selectors. The syntax for <code>--set nodeSelector.&quot;kubernetes\.io/role&quot;=master</code> becomes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">nodeSelector</span>:
+  <span style="color:#f92672">kubernetes.io/role</span>: <span style="color:#ae81ff">master</span>
+</code></pre></div><p>Deeply nested data structures can be difficult to express using <code>--set</code>. Chart designers are encouraged to consider the <code>--set</code> usage when designing the format of a values.yaml file (read more about Values Files).</p>
+<h3 id="more-installation-methods">More Installation Methods</h3>
+<p>The <code>helm install</code> command can install from several sources:</p>
+<ul>
+<li>A chart repository (as we&rsquo;ve seen above)</li>
+<li>A local chart archive (<code>helm install foo foo-0.1.1.tgz</code>)</li>
+<li>An unpacked chart directory (<code>helm install foo path/to/foo</code>)</li>
+<li>A full URL (<code>helm install foo https://example.com/charts/foo-1.2.3.tgz</code>)</li>
+</ul>
+<h2 id="helm-upgrade-and-helm-rollback-upgrading-a-release-and-recovering-on-failure"><code>helm upgrade</code> and <code>helm rollback</code>: Upgrading a Release, and Recovering on Failure</h2>
+<p>When a new version of a chart is released, or when you want to change the configuration of your release, you can use the <code>helm upgrade</code> command.</p>
+<p>An upgrade takes an existing release and upgrades it according to the information you provide. Because Kubernetes charts can be large and complex, Helm tries to perform the least invasive upgrade. It will only update things that have changed since the last release.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm upgrade -f panda.yaml happy-panda bitnami/wordpress
+</code></pre></div><p>In the above case, the happy-panda release is upgraded with the same chart, but with a new YAML file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">mariadb.auth.username</span>: <span style="color:#ae81ff">user1</span>
+</code></pre></div><p>We can use helm get values to see whether that new setting took effect.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm get values happy-panda
+mariadb:
+  auth:
+    username: user1
+</code></pre></div><p>The <code>helm</code> get command is a useful tool for looking at a release in the cluster. And as we can see above, it shows that our new values from panda.yaml were deployed to the cluster.</p>
+<p>Now, if something does not go as planned during a release, it is easy to roll back to a previous release using helm rollback [RELEASE] [REVISION].</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm rollback happy-panda <span style="color:#ae81ff">1</span>
+</code></pre></div><p>The above rolls back our happy-panda to its very first release version. A release version is an incremental revision. Every time an install, upgrade, or rollback happens, the revision number is incremented by 1. The first revision number is always 1. And we can use <code>helm history</code> [RELEASE] to see revision numbers for a certain release.</p>
+<h3 id="helpful-options-for-installupgraderollback">Helpful Options for Install/Upgrade/Rollback</h3>
+<p>There are several other helpful options you can specify for customizing the behavior of Helm during an install/upgrade/rollback. Please note that this is not a full list of cli flags. To see a description of all flags, just run helm <!-- raw HTML omitted --> &ndash;help.</p>
+<ul>
+<li><code>--timeout</code>: A Go duration value to wait for Kubernetes commands to complete. This defaults to 5m0s.</li>
+<li><code>--wait</code>: Waits until all Pods are in a ready state, PVCs are bound, Deployments have minimum (<code>Desired</code> minus <code>maxUnavailable</code>) Pods in ready state and - <code>Services have an IP address (and Ingress if a LoadBalancer) before marking the release as successful. It will wait for as long as the </code>&ndash;timeout<code>value. -</code>If timeout is reached, the release will be marked as <code>FAILED</code>. Note: In scenarios where Deployment has replicas set to 1 and <code>maxUnavailable</code> is not set - `to 0 as part of rolling update strategy, &ndash;wait will return as ready as it has satisfied the minimum Pod in ready condition.</li>
+<li><code>--no-hooks</code>: This skips running hooks for the command</li>
+<li><code>--recreate-pods</code> (only available for <code>upgrade</code> and <code>rollback</code>): This flag will cause all pods to be recreated (with the exception of pods belonging to deployments). (DEPRECATED in Helm 3)</li>
+</ul>
+<h2 id="helm-uninstall-uninstalling-a-release"><code>helm uninstall</code>: Uninstalling a Release</h2>
+<p>When it is time to uninstall a release from the cluster, use the <code>helm uninstall</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm uninstall happy-panda
+</code></pre></div><p>This will remove the release from the cluster. You can see all of your currently deployed releases with the <code>helm list</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm list
+NAME            VERSION UPDATED                         STATUS          CHART
+inky-cat        <span style="color:#ae81ff">1</span>       Wed Sep <span style="color:#ae81ff">28</span> 12:59:46 <span style="color:#ae81ff">2016</span>        DEPLOYED        alpine-0.1.0
+</code></pre></div><p>From the output above, we can see that the happy-panda release was uninstalled.</p>
+<p>In previous versions of Helm, when a release was deleted, a record of its deletion would remain. In Helm 3, deletion removes the release record as well. If you wish to keep a deletion release record, use <code>helm uninstall --keep-history</code>. Using <code>helm list --uninstalled</code> will only show releases that were uninstalled with the <code>--keep-history</code> flag.</p>
+<p>The <code>helm list --all</code> flag will show you all release records that Helm has retained, including records for failed or deleted items (if <code>--keep-history</code> was specified):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$  helm list --all
+NAME            VERSION UPDATED                         STATUS          CHART
+happy-panda     <span style="color:#ae81ff">2</span>       Wed Sep <span style="color:#ae81ff">28</span> 12:47:54 <span style="color:#ae81ff">2016</span>        UNINSTALLED     wordpress-10.4.5.6.0
+inky-cat        <span style="color:#ae81ff">1</span>       Wed Sep <span style="color:#ae81ff">28</span> 12:59:46 <span style="color:#ae81ff">2016</span>        DEPLOYED        alpine-0.1.0
+kindred-angelf  <span style="color:#ae81ff">2</span>       Tue Sep <span style="color:#ae81ff">27</span> 16:16:10 <span style="color:#ae81ff">2016</span>        UNINSTALLED     alpine-0.1.0
+</code></pre></div><p>Note that because releases are now deleted by default, it is no longer possible to rollback an uninstalled resource.</p>
+<h2 id="helm-repo-working-with-repositories"><code>helm repo</code>: Working with Repositories</h2>
+<p>Helm 3 no longer ships with a default chart repository. The <code>helm repo</code> command group provides commands to add, list, and remove repositories.</p>
+<p>You can see which repositories are configured using <code>helm repo list</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm repo list
+NAME            URL
+stable          https://charts.helm.sh/stable
+mumoshu         https://mumoshu.github.io/charts
+</code></pre></div><p>And new repositories can be added with helm repo add:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm repo add dev https://example.com/dev-charts
+</code></pre></div><p>Because chart repositories change frequently, at any point you can make sure your Helm client is up to date by running helm repo update.</p>
+<p>Repositories can be removed with helm repo remove.</p>
+<h2 id="creating-your-own-charts">Creating Your Own Charts</h2>
+<p>The <a href="https://helm.sh/docs/topics/charts/">Chart Development Guide</a> explains how to develop your own charts. But you can get started quickly by using the helm create command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm create deis-workflow
+</code></pre></div><p>Creating deis-workflow</p>
+<p>Now there is a chart in <code>./deis-workflow</code>. You can edit it and create your own templates.</p>
+<p>As you edit your chart, you can validate that it is well-formed by running <code>helm lint</code>.</p>
+<p>When it&rsquo;s time to package the chart up for distribution, you can run the helm package command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm package deis-workflow
+deis-workflow-0.1.0.tgz
+</code></pre></div><p>And that chart can now easily be installed by helm install:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ helm install deis-workflow ./deis-workflow-0.1.0.tgz
+...
+</code></pre></div><p>Charts that are packaged can be loaded into chart repositories. See the documentation for Helm chart repositories for more details.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>This chapter has covered the basic usage patterns of the helm client, including searching, installation, upgrading, and uninstalling. It has also covered useful utility commands like <code>helm status</code>, <code>helm get</code>, and <code>helm repo</code>.</p>
+<p>For more information on these commands, take a look at Helm&rsquo;s built-in help: <code>helm help</code>.</p>
+<p>This page is also a copy/paste of the official <a href="https://helm.sh/docs/intro/using_helm/">Helm doc</a>. Because why recreate some basic guide when the existing official one is weel written.</p>
 
 </article>
 

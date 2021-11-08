@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Vagrant Multi machine</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,28 +87,29 @@
 
 <h1>Vagrant Multi machine</h1>
 <h4>Published 09-09-2018 19:06:59</h4>
+
 <article>
     <h1 id="multiple-machines">Multiple machines</h1>
 <p>You can configure a <code>Vagrantfile</code> for multiples VMs at the same time.</p>
 <p>You need to use the function <code>vm.define</code> is the main VM configuration like the following configuration.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Common provisioning</span><span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;shell&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;echo Common provisioning&#34;</span>
 
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">web</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
-    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
-    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Provisioning for Web only</span><span style="color:#e6db74">&#34;</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;web&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
+    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/xenial64&#34;</span>
+    web<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;shell&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;echo Provisioning for Web only&#34;</span>
   <span style="color:#66d9ef">end</span>
 
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">db</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>db<span style="color:#f92672">|</span>
-    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
-    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo Provisioning for Db only</span><span style="color:#e6db74">&#34;</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;db&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>db<span style="color:#f92672">|</span>
+    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/xenial64&#34;</span>
+    db<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;shell&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&#34;echo Provisioning for Db only&#34;</span>
   <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>Try to run this configuration.<br>
-You should see two VMs starting each provisionning the common part and it's custom part.</p>
+You should see two VMs starting each provisionning the common part and it&rsquo;s custom part.</p>
 <p>By default, your <code>vagrant ssh</code> will connect to the main vm (the first configured).<br>
 You can change it with :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">web</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">primary</span>: <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;web&#34;</span>, <span style="color:#e6db74">primary</span>: <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>web<span style="color:#f92672">|</span>
   <span style="color:#75715e"># ...</span>
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p>You can also choose the connection VM with <code>vagrant ssh db</code></p>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <base href="/">
+    <base href="https://fteychene.github.io/vagrant-ansible-epsi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="author" content="Francois Teychené">
@@ -9,7 +9,7 @@
 <meta name="description" content="">
 
 <title>Getting Started with Vagrant</title>
-<meta name="generator" content="Hugo 0.62.1" />
+<meta name="generator" content="Hugo 0.89.1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -74,27 +74,6 @@
         </ul>
     </div>
     
-
-    
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul  style="display: none;" >
-            
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/paas/play_with_heroku/">Play with Heroku</a></li>
-            
-        </ul>
-    </div>
-    \
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="https://fteychene.github.io/vagrant-ansible-epsi/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     
 
@@ -108,11 +87,12 @@
 
 <h1>Getting Started with Vagrant</h1>
 <h4>Published 09-09-2018 14:06:59</h4>
+
 <article>
     <h1 id="installation">Installation</h1>
 <p>Installation instruction can be found on <a href="https://www.vagrantup.com/downloads.html">this page</a></p>
 <p>You can verify the installation by running the <code>vagrant</code> command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant
 Usage: vagrant <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> &lt;command&gt; <span style="color:#f92672">[</span>&lt;args&gt;<span style="color:#f92672">]</span>
 
     -v, --version                    Print the version and exit.
@@ -120,13 +100,13 @@ Usage: vagrant <span style="color:#f92672">[</span>options<span style="color:#f9
 
 <span style="color:#75715e"># ...</span>
 </code></pre></div><h1 id="first-vm">First VM</h1>
-<p>Let's start by crate a VM with <code>vagrant</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant init ubuntu/xenial64
+<p>Let&rsquo;s start by crate a VM with <code>vagrant</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant init ubuntu/xenial64
 ▶ vagrant up
 </code></pre></div><p>The Vagrant command will download a <code>box</code> (the vagrant term for an VM image for a provider), create a VM based on this image and start it.<br>
 In our case it will start a VM based on the <code>Ubuntu Xenial (16.04)</code> image.</p>
 <p>Connect to to your running instance with <code>vagrant ssh</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant ssh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">▶ vagrant ssh
 Welcome to Ubuntu 16.04.5 LTS <span style="color:#f92672">(</span>GNU/Linux 4.4.0-134-generic x86_64<span style="color:#f92672">)</span>
 
  * Documentation:  https://help.ubuntu.com
@@ -148,20 +128,20 @@ vagrant@ubuntu-xenial:~$
 Exit when you are ready to continue.</p>
 <p>To destroy the running VM <code>vagrant destroy</code></p>
 <h1 id="vagrantfile">Vagrantfile</h1>
-<p>When we ran the <code>vagrant init ubuntu/xenial64</code> command, if you looked closely to the command output, you've seen that a <code>Vagrantfile</code> have been created in your current directory.<br>
-This file is the configuration file of the VM and it's the information source for the <code>vagrant</code> command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># All Vagrant configuration is done below. The &#34;2&#34; in Vagrant.configure</span>
+<p>When we ran the <code>vagrant init ubuntu/xenial64</code> command, if you looked closely to the command output, you&rsquo;ve seen that a <code>Vagrantfile</code> have been created in your current directory.<br>
+This file is the configuration file of the VM and it&rsquo;s the information source for the <code>vagrant</code> command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># All Vagrant configuration is done below. The &#34;2&#34; in Vagrant.configure</span>
 <span style="color:#75715e"># configures the configuration version (we support older styles for</span>
 <span style="color:#75715e"># backwards compatibility). Please don&#39;t change it unless you know what</span>
 <span style="color:#75715e"># you&#39;re doing.</span>
-<span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+<span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
   <span style="color:#75715e"># The most common configuration options are documented and commented below.</span>
   <span style="color:#75715e"># For a complete reference, please see the online documentation at</span>
   <span style="color:#75715e"># https://docs.vagrantup.com.</span>
 
   <span style="color:#75715e"># Every Vagrant development environment requires a box. You can search for</span>
   <span style="color:#75715e"># boxes at https://vagrantcloud.com/search.</span>
-  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ubuntu/xenial64</span><span style="color:#e6db74">&#34;</span>
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/xenial64&#34;</span>
 
   <span style="color:#f92672">...</span>
 <span style="color:#66d9ef">end</span>
@@ -172,14 +152,14 @@ The documentation is also available <a href="https://docs.vagrantup.com">here</a
 Reinstall a VM could be an really easy but boring task to execute on each instanciation.<br>
 The provisionning part will let you define some tasks to be automatically executed by vagrant on the machine startup.</p>
 <p>Here is one exemple of the configuration based on the <code>shell</code> inline provisionning :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># Enable provisioning with a shell script. Additional provisioners such as</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># Enable provisioning with a shell script. Additional provisioners such as</span>
 <span style="color:#75715e"># Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the</span>
 <span style="color:#75715e"># documentation for more information about their specific syntax and use.</span>
-config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">shell</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&lt;&lt;-SHELL
-</span><span style="color:#e6db74"></span>  cat <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">File created by provisioning &gt;&gt; /tmp/witness</span><span style="color:#e6db74">&#34;</span>
+config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;shell&#34;</span>, <span style="color:#e6db74">inline</span>: <span style="color:#e6db74">&lt;&lt;-SHELL
+</span><span style="color:#e6db74"></span>  cat <span style="color:#e6db74">&#34;File created by provisioning &gt;&gt; /tmp/witness&#34;</span>
 <span style="color:#66d9ef">SHELL</span>
 </code></pre></div><p>Try this setup by starting the VM and check the created file :</p>
-<pre><code>▶ vagrant up
+<pre tabindex="0"><code>▶ vagrant up
 ▶ vagrant ssh
 ...
 vagrant@ubuntu-xenial:~$ cat /tmp/witness
