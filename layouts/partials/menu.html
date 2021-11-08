@@ -37,27 +37,6 @@
         </ul>
     </div>
     {{ end }}
-
-    {{ with where $.Site.RegularPages "Section" "paas" }}
-    <div id="paas" class="close">
-        <h3 data-open="paas">PaaS</h3>
-        <ul {{ if ne $sectionName "Paas"}} style="display: none;" {{ end }}>
-            {{ range (.ByParam "paas") }}
-            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-            {{ end }}
-        </ul>
-    </div>
-    {{ end }}\
-
-    <div id="ressources" class="close">
-        <h3 data-open="ressources">Resources</h3>
-        <ul style="display: none;">
-            <li><a href="{{.Site.BaseURL}}/Heroku.pdf" target="_blank">TP Heroku</a></li>
-            <li><a href="{{.Site.BaseURL}}/Projet.pdf" target="_blank">Project</a></li>
-            <li><a href="{{.Site.BaseURL}}/concepts.pdf" target="_blank">Concepts - Technologies</a></li>
-            <li><a href="{{.Site.BaseURL}}/types_cloud.pdf" target="_blank">Types clouds</a></li>
-        </ul>
-    </div>
     
     {{ with .Site.Taxonomies.tags }}
     <div id="tags" class="open">
