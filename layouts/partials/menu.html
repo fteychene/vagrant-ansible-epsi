@@ -37,6 +37,14 @@
         </ul>
     </div>
     {{ end }}
+
+    <div id="static" class="open">
+        <h3 data-open="static" >Ressources</h3>
+        <ul class="categories"  style="display: none;">
+            <li><a href="{{ .Site.BaseURL }}/Projet_Bonus.pdf" target="_blank">Bonus project (FR)</a></li>
+            {{ end }}
+        </ul>
+    </div>
     
     {{ with .Site.Taxonomies.tags }}
     <div id="tags" class="open">
@@ -60,5 +68,4 @@
     </div>
     {{ end }}
 
-    {{ end }}
 </nav>
